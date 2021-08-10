@@ -3,18 +3,21 @@
 '''
 Author: whalefall
 Date: 2021-08-07 14:59:08
-LastEditTime: 2021-08-07 21:31:13
+LastEditTime: 2021-08-10 17:08:54
 Description: python操作数据库
 '''
 import sqlite3
-import sys
+from pathlib import Path
 
 
 class Sql(object):
     def __init__(self) -> None:
         '''初始化数据库'''
+        # 数据库路径
+        db_path = Path.cwd().joinpath("db", "data.db")
+        # 连接数据库,不检查是否在同一个路径.
         self.client = sqlite3.connect(
-            "data.db", timeout=6, check_same_thread=False)
+            db_path, timeout=6, check_same_thread=False)
         self.cursor = self.client.cursor()
         self.newTable()
 
@@ -67,3 +70,4 @@ if __name__ == "__main__":
     s = Sql()
     s.update("SWDWQ")
     print(s.select())
+    # print(Path.cwd().joinpath("db","data.db"))
