@@ -3,7 +3,7 @@
 '''
 Author: whalefall
 Date: 2021-08-07 14:15:50
-LastEditTime: 2021-08-10 13:31:09
+LastEditTime: 2021-08-10 18:56:03
 Description: 短信测压接口测试平台,测试200状态码的接口,不一定可用
 '''
 import requests
@@ -63,7 +63,7 @@ class SMS(object):
             api = self.api_queue.get()
 
             try:
-                with requests.get(api.replace("{phone}", SMS.default_phone), headers=self.header, timeout=20,verify=False) as resp:
+                with requests.get(api.replace("{phone}", SMS.default_phone), headers=self.header, timeout=20, verify=False) as resp:
                     if resp.status_code == 200:
                         print(
                             f"线程{threading.current_thread().name}:已添加{api}队列数:{str(self.api_queue.qsize())}")
@@ -79,9 +79,11 @@ class SMS(object):
 
     def main(self):
         self.get_sms_api()
+        # 在此设置线程数 int 类型
+        threads_count = 128
         threads = [
             threading.Thread(target=self.check_theads, name=f"Theads-{i}")
-            for i in range(1, 129)
+            for i in range(1, threads_count+1)
         ]
         for thread in threads:
             thread.start()
@@ -103,8 +105,11 @@ if __name__ == '__main__':
     # http://2hz.xyz/index.php?dnm=15019872239&ok=
     # http://42.193.114.190:1234/index.php?
     # http://47.119.139.230/index.php
+    # https://hz.79g.cn/index.php?
 
     # 实例: http://hz.7qi.me/index.php?0pcall={SMS.default_phone}&ok=
-    url = "http://hz.7qi.me/index.php"
-    spider = SMS(url,key='?0pcall={SMS.default_phone}&ok=')
-    spider.get_sms_api()
+    # https://hz.79g.cn/index.php?0pcall=15019682928&ok=
+    url = "https://hz.79g.cn/index.php"
+    # 0pcall=15019682928&c=1 需要加f格式化字符串！！
+    spider = SMS(url, key=f'?0pcall={SMS.default_phone}&ok=')
+    spider.main()
