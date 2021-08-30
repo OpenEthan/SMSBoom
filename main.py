@@ -3,14 +3,16 @@
 '''
 Author: whalefall
 Date: 2021-08-07 14:15:50
-LastEditTime: 2021-08-10 18:56:03
+LastEditTime: 2021-08-30 12:01:20
 Description: 短信测压接口测试平台,测试200状态码的接口,不一定可用
 '''
-import requests
-import re
-from utils.db_sqlite import Sql
-import queue
 import threading
+import queue
+from utils.db_sqlite import Sql
+import re
+import requests
+import urllib3
+urllib3.disable_warnings()
 
 
 class SMS(object):
@@ -31,7 +33,7 @@ class SMS(object):
     def get_sms_api(self):
         '''请求短信轰炸平台'''
         with requests.session() as ses:
-            ses.get(self.url, headers=self.header)
+            ses.get(self.url, headers=self.header,verify=False)
             resp = ses.get(f"{self.url}{self.key}", headers=self.header)
         # print(resp.text)
         pat = re.compile(r"<img src='(.*?)' alt=''/>")
@@ -65,15 +67,17 @@ class SMS(object):
             try:
                 with requests.get(api.replace("{phone}", SMS.default_phone), headers=self.header, timeout=20, verify=False) as resp:
                     if resp.status_code == 200:
-                        print(
-                            f"线程{threading.current_thread().name}:已添加{api}队列数:{str(self.api_queue.qsize())}")
+                        print(f'线程{threading.current_thread().name}:[SUC]校验成功!队列数:{str(self.api_queue.qsize())}')
                         with self.lock:
                             # 多线程写sqlite数据库要加锁
-                            self.db.update(api)
-
+                            r = self.db.update(api)
+                            if r:
+                                print(
+                                    f"线程{threading.current_thread().name}:已添加{api} 队列数:{str(self.api_queue.qsize())}")
             except Exception as e:
                 print(
-                    f"线程{threading.current_thread().name}出错:{e}队列数:{str(self.api_queue.qsize())}")
+                    f"线程{threading.current_thread().name}出错 队列数:{str(self.api_queue.qsize())}")
+                pass
             finally:
                 self.api_queue.task_done()
 
@@ -112,4 +116,6 @@ if __name__ == '__main__':
     url = "https://hz.79g.cn/index.php"
     # 0pcall=15019682928&c=1 需要加f格式化字符串！！
     spider = SMS(url, key=f'?0pcall={SMS.default_phone}&ok=')
+    # url = 'https://120.77.244.209/sdlz/yh.php'
+    # spider = SMS(url)
     spider.main()

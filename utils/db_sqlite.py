@@ -3,7 +3,7 @@
 '''
 Author: whalefall
 Date: 2021-08-07 14:59:08
-LastEditTime: 2021-08-10 17:08:54
+LastEditTime: 2021-08-30 11:55:18
 Description: python操作数据库
 '''
 import sqlite3
@@ -41,8 +41,10 @@ CREATE TABLE IF NOT EXISTS API200 (
         try:
             self.cursor.execute(sql, (url,))
             self.client.commit()
+            return True
         except sqlite3.IntegrityError:
-            print(f"{url} 数据重复!")
+            # print(f"{url} 数据重复!")
+            return False
 
     def select(self) -> list:
         '''获取所有接口'''
