@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- 屏蔽referrer -->
+    <meta name="referrer" content="never">
+    <title>短信轰炸接口调试工具.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="https://unpkg.com/layui@2.6.8/dist/css/layui.css">
+    <!-- 引入 layui.js -->
+    <script src="https://unpkg.com/layui@2.6.8/dist/layui.js"></script>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="page-header">
+            <h1>抖音去水印解析<small>最新支持图文/视频! author:落落 <b><a href="https://lskyl.xyz/">Blog</a></b></small></h1>
+        </div>
+        <label for="basic-url">请输入复制的视频链接(自动提取URL)</label>
+
+        <!-- 输入框组 -->
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">URL:</span>
+            <input v-model="raw_url" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <span class="input-group-btn">
+                <button v-on:click="req_api" class="btn btn-info" type="button">Go!</button>
+            </span>
+        </div>
+        <br />
+        <div v-if="url" class="alert alert-info" role="alert">
+            <b>提取到的链接:</b> <a v-bind:href="url" class="alert-link" target="_blank">{{ url }}</a>
+        </div>
+
+        <div v-if="resp">
+            <div v-if="resp.status" class="alert alert-danger" role="alert">
+                <b>接口报错!Msg:</b> {{ resp.msg }}
+            </div>
+
+            <div v-else>
+                <div class="alert alert-success" role="alert">
+                    <b>解析成功!Msg:</b> {{ resp.msg }}
+                </div>
+                <!--  Telegram share -->
+                <script async src="https://telegram.org/js/telegram-widget.js?18" v-bind:data-telegram-share-url="resp.data.p_url" v-bind:data-comment="resp.data.title" data-size="large"></script>
+                <!--  解析结果可折叠面板 -->
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <b v-if="resp.type_ === 'v'">Type:视频</b>
+                            <b v-else>Type:图文</b>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <b>文案:</b> {{ resp.data.title }}
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <b>作者:</b> {{ resp.data.author }}
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <b>音乐:</b><a v-bind:href="resp.data.m_url" target="_blank"><b>(点击下载)</b></a>
+                            <audio v-bind:src="resp.data.m_url" controls>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse_1">
+                                    预览图 (点击展开)
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse_1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="#" class="thumbnail">
+                                    <img v-bind:src="resp.data.p_url" alt="无法加载....">
+                                    <a v-bind:href="resp.data.p_url">
+                                        <button type="button" class="btn btn-info">Download</button>
+                                    </a>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="resp.type_ === 'p'" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse_2">
+                                    图文下载 (点击展开)
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse_2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                点击图片即可下载！
+                                <div class="row">
+                                    <div v-for="img_url in resp.data.img_list" class="col-xs-6 col-md-3">
+                                        <a v-bind:href="img_url" target="_blank" class="thumbnail">
+                                            <img v-bind:src="img_url" alt="加载失败">
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <b>视频链接：</b>
+                                <a v-bind:href="resp.data.v_url" target="_blank">(点击下载)</a>
+                                <br />
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video ref="video" controls controlslist="nodownload" preload="none" width="100%"
+                                        height="100%" :poster="resp.data.p_url" :src="resp.data.v_url">
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div v-if="error">
+            <div class="alert alert-danger" role="alert">
+                <b>请求失败,请检查接口 Why:</b> {{ resp }}
+                接口地址: <code>{{ api }}</code>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    // api 地址基于 Flask 搭建，可能会失效。请知悉
+    // 重度使用者请自行通过腾讯云函数搭建！！！
+    var api = "https://service-dyjwokh6-1300913563.gz.apigw.tencentcs.com/dy/"
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            api: api,
+            raw_url: '',
+            url: '',
+            resp: '',
+            error: ''
+        },
+        methods: {
+            // 正则匹配字符串中的URL
+            httpString: function (s) {
+                if (!s) return ''
+                var reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
+                var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+                s = s.match(reg);
+                this.url = s[0];
+                console.log(this.url);
+                return s[0];
+            },
+            req_api: function () {
+                layer.msg('请求接口中', {
+                    icon: 16
+                    , shade: 0.01
+                });
+                axios.get(api, {
+                    params: {
+                        url: this.url,
+                    }
+                })
+                    .then((response) => {
+                        this.resp = response.data;
+                        layer.closeAll('loading');
+                    })
+                    .catch((error) => {
+                        this.error = true;
+                        this.resp = error;
+                        layer.closeAll('loading');
+                    })
+            },
+        },
+        // 监听 raw_url 变化
+        watch: {
+            'raw_url': function (newVal) {
+                this.url = this.httpString(newVal);
+            },
+        },
+    });
+
+</script>
+
+</html>
