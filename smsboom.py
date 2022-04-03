@@ -1,4 +1,4 @@
-# coding=utf-8
+# encoding=utf8
 import httpx
 import json
 import sys
@@ -79,8 +79,10 @@ def replace_data(content: Union[str, dict]) -> str:
             content[key] = value.replace("{phone}", phone).replace(
                 "{timestamp}", timestamp_new())
     else:
-        content.replace("{phone}", phone).replace(
-            "{timestamp}", timestamp_new())
+        # fix: add str判断
+        if isinstance(content, str):
+            content.replace("{phone}", phone).replace(
+                "{timestamp}", timestamp_new())
     return content
 
 
