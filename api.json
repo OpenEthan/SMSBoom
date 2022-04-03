@@ -1,0 +1,16 @@
+[
+    {
+        "desc": "彩云小译",
+        "url": "https://biz.caiyunapp.com/v1/send_sms_code",
+        "method": "POST",
+        "header": {
+            "Referer": "https://fanyi.caiyunapp.com/",
+            "Cookie": "UM_distinctid=17fd5c7a9ba69a-0200a7005bf45a-56171958-146d15-17fd5c7a9bb749; _gid=GA1.2.2046680529.1648971157; _gat_gtag_UA_185151443_2=1; _ga=GA1.2.44459633.1648559084; _ga_65TZCJSDBD=GS1.1.1648971156.4.1.1648971164.0; _ga_R9YPR75N68=GS1.1.1648971156.4.1.1648971164.52",
+            "Cy-Token": "token 9876032166"
+        },
+        "data": {
+            "phone_num": "{phone}",
+            "area_code": "86"
+        }
+    }
+]
