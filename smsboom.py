@@ -76,13 +76,13 @@ def timestamp_new() -> str:
 def replace_data(content: Union[str, dict]) -> str:
     if isinstance(content, dict):
         for key, value in content.items():
-            content[key] = value.replace("{phone}", phone).replace(
-                "{timestamp}", timestamp_new())
+            content[key] = value.replace("[phone]", phone).replace(
+                "[timestamp]", timestamp_new())
     else:
         # fix: add str判断
         if isinstance(content, str):
-            content.replace("{phone}", phone).replace(
-                "{timestamp}", timestamp_new())
+            content.replace("[phone]", phone).replace(
+                "[timestamp]", timestamp_new())
     return content
 
 
