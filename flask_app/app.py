@@ -1,7 +1,7 @@
 # encoding=utf8
 import json
 import time
-from flask import Flask, make_response, request, jsonify
+from flask import Flask, make_response, request, jsonify, render_template
 from flask_cors import CORS
 from urllib3 import disable_warnings
 
@@ -12,6 +12,9 @@ disable_warnings()
 app = Flask(__name__)
 CORS(app, supports_credentials=True, resources="/*")  # 跨域
 
+# 解决与 vue 冲突
+app.jinja_env.variable_start_string = '[['
+app.jinja_env.variable_end_string = ']]'
 
 def request_parse(req_data: request) -> dict:
     '''解析请求数据并以字典的形式返回'''
@@ -48,6 +51,10 @@ class BaseResponse(BaseModel):
         return response
 
 
+@app.route("/", methods=['GET'])
+def index():
+    return render_template('admin.html')
+
 @app.route("/testapi/", methods=['POST'])
 def testapi():
     brs = BaseResponse()
@@ -77,7 +84,7 @@ def submitapi():
     """提交API到json文件"""
     # 需要传入 json 数据
     jsonData = request.get_json()
-    api = API(**jsonData)
+    api = API(**jsonData).handle_API()
     data = json.loads(json_path.read_text(encoding='utf8'))
     with open(json_path, mode="w", encoding="utf8") as j:
         try:
@@ -88,13 +95,13 @@ def submitapi():
             return BaseResponse(status=1, msg=f"写入失败!{why}").resp
 
 
-@app.route("/backapi/", methods=['GET'])
+@app.route("/backapi/", methods=['GET', 'POST'])
 def backjson():
     """备份json文件"""
     try:
         timeStruct = time.localtime(int(time.time()))
         strTime = time.strftime("%Y_%m_%d_%H_%M_%S", timeStruct)
-        Path.mkdir(Path(json_path.parent, 'apiback', exist_ok=True))
+        Path(json_path.parent, 'apiback').mkdir(exist_ok=True)
         json_back_path = Path(json_path.parent, 'apiback',
                               f"api_back_{strTime}.json")
         with open(json_back_path, mode="w") as j:
@@ -104,10 +111,11 @@ def backjson():
     except Exception as why:
         return BaseResponse(status=1, msg=f"备份失败{why}").resp
 
+
 @app.route("/downloadapi/", methods=['GET'])
 def downloadapi():
     """下载接口文件"""
     return json_path.read_text(encoding='utf8')
 
 
-app.run(host="0.0.0.0", port=1098, debug=True)
+app.run(host="0.0.0.0", port=10981, debug=True)

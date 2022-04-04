@@ -42,31 +42,35 @@ class API(BaseModel):
         return v
 
     def replace_data(self, content: Union[str, dict], phone) -> str:
+        if not phone:
+            return content
         if isinstance(content, dict):
             for key, value in content.items():
-                content[key] = value.replace("{phone}", phone).replace(
-                    "{timestamp}", self.timestamp_new())
+                content[key] = value.replace("[phone]", phone).replace(
+                    "[timestamp]", self.timestamp_new())
         else:
             if isinstance(content, str):
-                content.replace("{phone}", phone).replace(
-                    "{timestamp}", self.timestamp_new())
+                content.replace('[phone]', phone).replace(
+                    '[timestamp]', self.timestamp_new())
         return content
 
     def timestamp_new(self) -> str:
         """返回整数字符串时间戳"""
         return str(int(datetime.now().timestamp()))
 
-    def handle_API(self, phone):
+    def handle_API(self, phone=None):
         """
         :param API: one API basemodel
         :return: API basemodel
         """
         if self.method != "POST":
             self.method = "GET"
-        self.data = self.replace_data(self.data, phone)
-        self.url = self.replace_data(self.url, phone)
+        if isinstance(self.data, str):
+            self.data = json.loads(self.data)
         if isinstance(self.header, str):
             self.header = json.loads(self.header)
+        self.data = self.replace_data(self.data, phone)
+        self.url = self.replace_data(self.url, phone)
         return self
 
 
@@ -77,6 +81,7 @@ def test_resq(api: API, phone) -> httpx.Response:
     :return: httpx 请求对象.
     """
     api = api.handle_API(phone)
+    print(api.dict())
     with httpx.Client(headers=default_header, timeout=8) as client:
         if not isinstance(api.data, dict):
             client.request(method=api.method, headers=api.header,
