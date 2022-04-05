@@ -91,8 +91,6 @@ def handle_API(API: API) -> API:
     :param API: one API basemodel
     :return: API basemodel
     """
-    if API.method != "POST":
-        API.method = "GET"
     API.data = replace_data(API.data)
     API.url = replace_data(API.url)
     return API
