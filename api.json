@@ -12,5 +12,16 @@
             "phone_num": "[phone]",
             "area_code": "86"
         }
+    },
+    {
+        "desc": "网易云游戏",
+        "url": "https://n.cg.163.com/api/v1/phone-captchas/86-[phone]",
+        "method": "POST",
+        "header": "",
+        "data": {
+            "etc": {
+                "validate": ""
+            }
+        }
     }
 ]
