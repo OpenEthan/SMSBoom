@@ -38,5 +38,22 @@
             "dial_code": "0086",
             "phone": "[phone]"
         }
+    },
+    {
+        "desc": "踢米app",
+        "url": "https://www.timing360.com/user/send-captcha",
+        "method": "POST",
+        "header": {
+            "Authorization": "7119181942667E7D85987C65A6D0B8EC",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "data": "_app_version=10.13.2&_carrier=&_city=&_country=&_country_code=&_date=2022-04-05&_device_id=b6ad5aabe403d839&_device_manufacturer=Netease&_device_model=MuMu&_device_os=Android&_device_os_version=6.0.1&_distinct_id=a86d6bb7-8e26-43c5-baf3-82cdf95fffdd&_ip=&_is_login_id=0&_login_method=phone&_network_type=WIFI&_province=&_screen_height=2000&_screen_width=1125&_time=2022-04-05%2021%3A21%3A13&_user_id=a86d6bb7-8e26-43c5-baf3-82cdf95fffdd&_wifi=1&adCode=&brand=Android&city=&cityCode=&countryCode=86&imei=861151055733959&isCheckPhoneExist=0&latitude=&longitude=&market=yyb&nonce=708380&os=6.0.1&osType=1&phoneModel=MuMu&phoneNumber=[phone]&sessionId=e1c69361-c78b-4f4d-8c98-938ba4eccff6&timestamp=[timestamp]&userID=-709178027&userKey=11111111111111111111111111111111&versioncode=187"
+    },
+    {
+        "desc": "微爱app",
+        "url": "http://api.welove520.com/v5/account/phone/verifyCode/send?phone_number=[phone]&client_id=464847866_[timestamp]&type=6&area_code=86&app_key=ac5f34563a4344c4&sig=xvP64W04tR%2FNJoZEJEoJySmlIXU%3D",
+        "method": "POST",
+        "header": "",
+        "data": ""
     }
 ]
