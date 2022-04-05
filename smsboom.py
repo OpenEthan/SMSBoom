@@ -27,7 +27,7 @@ default_header = {
 # current directory
 path = pathlib.Path(__file__).parent
 
-phone = "19820294268"
+phone = "19820294267"
 
 
 class API(BaseModel):
@@ -36,13 +36,6 @@ class API(BaseModel):
     method: str = "GET"
     header: Optional[dict]
     data: Optional[Union[str, dict]]
-
-    @validator('url')
-    def name_must_contain_space(cls, v: str):
-        """验证链接是否正确"""
-        if not v.startswith('https' or 'http'):
-            raise ValueError('url must startswith http(s)!')
-        return v
 
 
 def load_json() -> List[API]:
@@ -74,16 +67,16 @@ def timestamp_new() -> str:
 
 
 def replace_data(content: Union[str, dict]) -> str:
-    if isinstance(content, dict):
-        for key, value in content.items():
-            content[key] = value.replace("[phone]", phone).replace(
-                "[timestamp]", timestamp_new())
-    else:
-        # fix: add str判断
-        if isinstance(content, str):
-            content.replace("[phone]", phone).replace(
-                "[timestamp]", timestamp_new())
-    return content
+    if not phone:
+        return content
+    # 统一转换成 str 再替换.
+    content = str(content).replace("[phone]", phone).replace(
+        "[timestamp]", timestamp_new()).replace("'",'"')
+    # 尝试 json 化
+    try:
+        return json.loads(content)
+    except:
+        return content
 
 
 def handle_API(API: API) -> API:
@@ -105,12 +98,13 @@ async def rqs(API: API):
     # print(API.dict())
     async with httpx.AsyncClient(headers=default_header) as client:
         try:
-            # 判断是否传递 json 数据
-            if isinstance(API.data, dict):
-                r = await client.request(method=API.method, url=API.url, json=API.data, headers=API.header)
+            if not isinstance(API.data, dict):
+                resp = await client.request(method=API.method, headers=API.header,
+                            url=API.url, data=API.data)
             else:
-                r = await client.request(method=API.method, url=API.url, data=API.data, headers=API.header)
-            logger.info(f"{API.desc} {r.text}")
+                resp = await client.request(
+                    method=API.method, headers=API.header, url=API.url, json=API.data)
+            logger.success(f"{API.desc}-{resp.text}")
         except httpx.HTTPError as exc:
             logger.error(f"{API.desc} Error:{exc}")
 
