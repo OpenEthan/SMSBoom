@@ -63,7 +63,8 @@ class API(BaseModel):
         :return: API basemodel
         """
         if isinstance(self.data, str):
-            self.data = json.loads(self.data)
+            if self.data:
+                self.data = json.loads(self.data)
         if isinstance(self.header, str):
             if self.header:
                 self.header = json.loads(self.header)
