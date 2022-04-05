@@ -46,7 +46,7 @@ class API(BaseModel):
             return content
         # 统一转换成 str 再替换.
         content = str(content).replace("[phone]", phone).replace(
-            "[timestamp]", self.timestamp_new())
+            "[timestamp]", self.timestamp_new()).replace("'",'"')
         # 尝试 json 化
         try:
             return json.loads(content)
@@ -82,10 +82,13 @@ def test_resq(api: API, phone) -> httpx.Response:
     api = api.handle_API(phone)
     with httpx.Client(headers=default_header, timeout=8) as client:
         if not isinstance(api.data, dict):
-            client.request(method=api.method, headers=api.header,
+            # print("data")
+            resp = client.request(method=api.method, headers=api.header,
                            url=api.url, data=api.data)
-        resp = client.request(
-            method=api.method, headers=api.header, url=api.url, json=api.data)
+        else:
+            # print('json')
+            resp = client.request(
+                method=api.method, headers=api.header, url=api.url, json=api.data)
     return resp
 
 
