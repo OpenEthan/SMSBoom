@@ -56,6 +56,7 @@ def index():
     return render_template('admin.html')
 
 @app.route("/testapi/", methods=['POST'])
+@logger.catch
 def testapi():
     brs = BaseResponse()
     # 需要传入 json 数据

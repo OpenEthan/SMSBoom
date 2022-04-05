@@ -44,15 +44,14 @@ class API(BaseModel):
     def replace_data(self, content: Union[str, dict], phone) -> str:
         if not phone:
             return content
-        if isinstance(content, dict):
-            for key, value in content.items():
-                content[key] = value.replace("[phone]", phone).replace(
-                    "[timestamp]", self.timestamp_new())
-        else:
-            if isinstance(content, str):
-                content.replace('[phone]', phone).replace(
-                    '[timestamp]', self.timestamp_new())
-        return content
+        # 统一转换成 str 再替换.
+        content = str(content).replace("[phone]", phone).replace(
+            "[timestamp]", self.timestamp_new())
+        # 尝试 json 化
+        try:
+            return json.loads(content)
+        except:
+            return content
 
     def timestamp_new(self) -> str:
         """返回整数字符串时间戳"""
@@ -63,12 +62,11 @@ class API(BaseModel):
         :param API: one API basemodel
         :return: API basemodel
         """
-        if self.method != "POST":
-            self.method = "GET"
         if isinstance(self.data, str):
             self.data = json.loads(self.data)
         if isinstance(self.header, str):
-            self.header = json.loads(self.header)
+            if self.header:
+                self.header = json.loads(self.header)
         self.data = self.replace_data(self.data, phone)
         self.url = self.replace_data(self.url, phone)
         return self
@@ -81,7 +79,6 @@ def test_resq(api: API, phone) -> httpx.Response:
     :return: httpx 请求对象.
     """
     api = api.handle_API(phone)
-    print(api.dict())
     with httpx.Client(headers=default_header, timeout=8) as client:
         if not isinstance(api.data, dict):
             client.request(method=api.method, headers=api.header,
@@ -89,3 +86,7 @@ def test_resq(api: API, phone) -> httpx.Response:
         resp = client.request(
             method=api.method, headers=api.header, url=api.url, json=api.data)
     return resp
+
+
+if __name__ == '__main__':
+    pass
