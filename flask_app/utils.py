@@ -34,12 +34,6 @@ class API(BaseModel):
     header: Optional[Union[str, dict]] = default_header
     data: Optional[Union[str, dict]]
 
-    @validator('url')
-    def name_must_contain_space(cls, v: str):
-        """验证链接是否正确"""
-        if not v.startswith('https' or 'http'):
-            raise ValueError('url must startswith http(s)!')
-        return v
 
     def replace_data(self, content: Union[str, dict], phone) -> str:
         if not phone:
@@ -62,9 +56,9 @@ class API(BaseModel):
         :param API: one API basemodel
         :return: API basemodel
         """
-        if isinstance(self.data, str):
-            if self.data:
-                self.data = json.loads(self.data)
+        # if isinstance(self.data, str):
+        #     if self.data:
+        #         self.data = json.loads(self.data)
         if isinstance(self.header, str):
             if self.header:
                 self.header = json.loads(self.header)
@@ -82,11 +76,11 @@ def test_resq(api: API, phone) -> httpx.Response:
     api = api.handle_API(phone)
     with httpx.Client(headers=default_header, timeout=8) as client:
         if not isinstance(api.data, dict):
-            # print("data")
+            print("data")
             resp = client.request(method=api.method, headers=api.header,
                            url=api.url, data=api.data)
         else:
-            # print('json')
+            print('json')
             resp = client.request(
                 method=api.method, headers=api.header, url=api.url, json=api.data)
     return resp
