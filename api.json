@@ -23,5 +23,20 @@
                 "validate": ""
             }
         }
+    },
+    {
+        "desc": "果壳app",
+        "url": "https://guokrapp-apis.guokr.com/hawking/v1/verifications",
+        "method": "POST",
+        "header": {
+            "User-Agent": "android 2.0.15",
+            "Client-Source": "android;23;Android;MuMu",
+            "Client-Channel": "gkchannel_QD009",
+            "Content-Type": "application/json; charset=UTF-8"
+        },
+        "data": {
+            "dial_code": "0086",
+            "phone": "[phone]"
+        }
     }
 ]
