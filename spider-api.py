@@ -191,7 +191,7 @@ def spider_all():
 
 
 @click.command()
-@click.option('--url', help='轰炸网站的网址,结尾需要带/')
+@click.option('--url', help='轰炸网站的网址,结尾需要带/', prompt=True)
 @click.option('--key', help='网址携带的参数(可选)', default="")
 def spider_one(url, key):
     """爬取单个网址."""
