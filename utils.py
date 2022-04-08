@@ -1,10 +1,20 @@
 # coding=utf-8
-# 读写数据库模块
+# utils 实用工具类
 import sqlite3
+import json
+from datetime import datetime
 from pathlib import Path
+from pydantic import BaseModel
+from typing import Union, Optional
+
+default_header = {
+    "User-Agent": "Mozilla/5.0 (Linux; U; Android 10; zh-cn; Mi 10 Build/QKQ1.191117.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.147 Mobile Safari/537.36 XiaoMi/MiuiBrowser/13.5.40"
+}
 
 
 class Sql(object):
+    """处理SQL数据"""
+
     def __init__(self) -> None:
         '''初始化数据库'''
         # 数据库路径
@@ -59,3 +69,39 @@ CREATE TABLE IF NOT EXISTS API200 (
         '''对象被删除时执行的函数'''
         print(f"共改变{self.client.total_changes}条数据!,正在关闭数据库连接......")
         self.client.close()
+
+
+class API(BaseModel):
+    """处理自定义 API 数据"""
+    desc: str = "Default"
+    url: str
+    method: str = "GET"
+    header: Optional[Union[str, dict]] = default_header
+    data: Optional[Union[str, dict]]
+
+    def replace_data(self, content: Union[str, dict], phone: str) -> str:
+        # 统一转换成 str 再替换. ' -> "
+        content = str(content).replace("[phone]", phone).replace(
+            "[timestamp]", self.timestamp_new()).replace("'", '"')
+        # 尝试 json 化
+        try:
+            return json.loads(content)
+        except:
+            return content
+
+    def timestamp_new(self) -> str:
+        """返回整数字符串时间戳"""
+        return str(int(datetime.now().timestamp()))
+
+    def handle_API(self, phone: str):
+        """ 传入手机号处理 API
+        :param API: one API basemodel
+        :return: API basemodel
+        """
+        # 如果传入的 header 是字符串,就转为字典.
+        if (isinstance(self.header, str) and self.header):
+            self.header = json.loads(self.header.replace("'", '"'))
+        
+        self.data = self.replace_data(self.data, phone)
+        self.url = self.replace_data(self.url, phone)
+        return self
