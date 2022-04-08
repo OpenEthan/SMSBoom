@@ -12,6 +12,7 @@ import threading
 import sys
 import json
 from prettytable import PrettyTable
+import click
 import urllib3
 urllib3.disable_warnings()
 
@@ -52,10 +53,10 @@ class SMS(object):
             ses.get(self.url, headers=self.header)
             resp = ses.get(f"{self.url}{self.key}", headers=self.header)
 
-        pat = re.compile(r"<img src='(.*?)' alt=''/>")
+        pat = re.compile(r"<img src='(.*?)' alt")
         apis = pat.findall(resp.text)
         assert not apis == [], "未找到任何接口!"
-
+        # print(resp.text)
         logger.info("获取到的原始接口总数:%s" % (len(apis)))
 
         for api in apis:
@@ -96,7 +97,7 @@ class SMS(object):
     def main(self):
         self.get_sms_api()
         # 在此设置线程数 int 类型
-        threads_count = 128
+        threads_count = 254
         threads = [
             threading.Thread(target=self.check_theads,
                              name=f"{i}", daemon=True)
@@ -170,7 +171,16 @@ def load_api_web():
     return ok_web
 
 
-def main():
+@click.group()
+def cli():
+    pass
+
+
+@click.command()
+def spider_all():
+    """
+    根据目录下的 hz-web.json 文件更新接口
+    """
     websites = load_api_web()
     for website in websites:
         logger.info(f"正在爬取:{website['url']}")
@@ -180,5 +190,35 @@ def main():
             logger.critical(f"爬取:{website['url']} 出错:{why}")
 
 
+@click.command()
+@click.option('--url', help='轰炸网站的网址,结尾需要带/')
+@click.option('--key', help='网址携带的参数(可选)', default="")
+def spider_one(url, key):
+    """爬取单个网址."""
+    try:
+        sms = SMS(website=url, key=key).main()
+    except Exception as why:
+        logger.critical(f"爬取:{url} 出错:{why}")
+
+
+@click.command()
+@logger.catch
+def save_api():
+    """保存api到 GETAPI.json 文件"""
+    db = Sql()
+    apis = db.select()
+    api_lst = [
+        api
+        for api in apis
+    ]
+    with open("GETAPI.json", mode="w") as j:
+        json.dump(fp=j, obj=api_lst, ensure_ascii=False)
+    logger.success("写入到 GETAPI.json 成功!")
+
+
+cli.add_command(spider_all)
+cli.add_command(spider_one)
+cli.add_command(save_api)
+
 if __name__ == '__main__':
-    main()
+    cli()
