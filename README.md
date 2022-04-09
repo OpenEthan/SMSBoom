@@ -135,9 +135,9 @@ pipenv run python flask_app/app.py
 默认监听 *0.0.0.0:10981* 地址,浏览器访问[http://127.0.0.1:10981](http://127.0.0.1:10981)若无意外,就可以出现前端调试界面。
 
 1. WebAPI
-`/downloadapi/`:GET 出现当前 api.json 文件的内容。
-`/testapi/`:POST 给定抓取的api，测试请求。
-`/submitapi/`:POST 提交当前的api到 api.json 文件。
+`/downloadapi/`:GET 出现当前 api.json 文件的内容。  
+`/testapi/`:POST 给定抓取的api，测试请求。  
+`/submitapi/`:POST 提交当前的api到 api.json 文件。  
 
 
 
