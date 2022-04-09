@@ -140,16 +140,17 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
 
 
 @click.command()
-@click.option("-p", "--proxy", help="GitHub 代理镜像(默认github.do)", default="https://github.do/")
+@click.option("-p", "--proxy", help="[!!暂时弃用该选项!!]GitHub 代理镜像(默认github.do)", default="https://github.do/")
 def update(proxy: str):
     """从 github 获取最新接口"""
-    GETAPI_json_url = f"{proxy}https://raw.githubusercontent.com/AdminWhaleFall/SMSBoom/master/GETAPI.json"
-    API_json_url = f"{proxy}https://raw.githubusercontent.com/AdminWhaleFall/SMSBoom/master/api.json"
+    GETAPI_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/GETAPI.json"
+    API_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/api.json"
     logger.info(f"正在从GitHub拉取最新接口!")
     try:
         with httpx.Client(verify=False, timeout=10) as client:
-            GETAPI_json = client.get(GETAPI_json_url).content.decode(encoding="utf8")
-            api_json = client.get(API_json_url).content.decode(encoding="utf8")
+            # print(API_json_url)
+            GETAPI_json = client.get(GETAPI_json_url, headers=default_header).content.decode(encoding="utf8")
+            api_json = client.get(API_json_url, headers=default_header).content.decode(encoding="utf8")
             
     except Exception as why:
         logger.error(f"拉取更新失败:{why}请多尝试几次!")

@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.doubanio.com/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-cors = "*"
+httpx = "*"
+pydantic = "*"
+click = "*"
+loguru = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

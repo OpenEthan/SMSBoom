@@ -1,4 +1,0 @@
-httpx
-click
-flask
-flask_cors
