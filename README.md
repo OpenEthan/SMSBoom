@@ -13,81 +13,81 @@
 
 1. **下载本项目**  
 
-   - 方法一：使用Git:  
+- 方法一：使用Git:  
 
-   ```shell
-   git clone https://github.com/AdminWhaleFall/SMSBoom.git/
-   ```  
+```shell
+git clone https://github.com/AdminWhaleFall/SMSBoom.git/
+```  
 
-   > 墙国加速
-   >  
-   > ```shell
-   > git clone https://github.do/https://github.com/AdminWhaleFall/SMSBoom.git
-   > ```  
+> 墙国加速
+>  
+> ```shell
+> git clone https://github.do/https://github.com/AdminWhaleFall/SMSBoom.git
+> ```  
 
-   - 方法二：点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
+- 方法二：点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
 
 2. **配置环境**  
 
-   > **请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上！**  
+> **请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上！**  
 
-   - 安装 pipenv 包管理工具.  
+- 安装 pipenv 包管理工具.  
 
-   ```shell
-   pip install pipenv  # windows
-   pip3 install pipenv # linux
-   ```
+```shell
+pip install pipenv  # windows
+pip3 install pipenv # linux
+```
 
-   - 为项目构建虚拟环境.  
+- 为项目构建虚拟环境.  
 
-   ```shell
-   pipenv install
-   ```
+```shell
+pipenv install
+```
 
-   - 尝试运行 smsboom.py  
+- 尝试运行 smsboom.py  
 
-   ```shell
-   pipenv run python3 smsboom.py  # linux
-   pipenv run python smsboom.py # windows
-   ```
+```shell
+pipenv run python3 smsboom.py  # linux
+pipenv run python smsboom.py # windows
+```
 
-   若无报错，输出帮助信息，则说明环境已经正确安装。
+若无报错，输出帮助信息，则说明环境已经正确安装。
 
-2. **运行**  
+1. **运行**  
 
-   - 帮助信息  
-   ```python
-   pipenv run python smsboom.py --help # windows
-   pipenv run python3 smsboom.py --help # linux
-   # 输出
+- 帮助信息  
+```python
+pipenv run python smsboom.py --help # windows
+pipenv run python3 smsboom.py --help # linux
+# 输出
 
-   Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...    
-   Options:
-     --help  Show this message and exit.
-   Commands:
-     run     传入线程数和手机号启动轰炸,支持多手机号
-     update  从 github 获取最新接口
-   ```
+Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...    
+Options:
+--help  Show this message and exit.
+Commands:
+run     传入线程数和手机号启动轰炸,支持多手机号
+update  从 github 获取最新接口
+```
 
-   - 启动轰炸  
-   
-     帮助信息:
-    
-     ```python
-     pipenv run python smsboom.py run --help # windows
-     pipenv run python3 smsboom.py run --help # linux
+- 启动轰炸  
 
-     Usage: smsboom.py run [OPTIONS]
+帮助信息:
 
-        传入线程数和手机号启动轰炸,支持多手机号
+```python
+pipenv run python smsboom.py run --help # windows
+pipenv run python3 smsboom.py run --help # linux
 
-     Options:
-      -t, --thread INTEGER    线程数(默认64)
-      -p, --phone TEXT        手机号,可传入多个再使用-p传递  [required]
-      -s, --super             循环模式
-      -i, --interval INTEGER  循环间隔时间(默认60s)
-      --help                  Show this message and exit.
-     ```
+Usage: smsboom.py run [OPTIONS]
+
+传入线程数和手机号启动轰炸,支持多手机号
+
+Options:
+-t, --thread INTEGER    线程数(默认64)
+-p, --phone TEXT        手机号,可传入多个再使用-p传递  [required]
+-s, --super             循环模式
+-i, --interval INTEGER  循环间隔时间(默认60s)
+--help                  Show this message and exit.
+```
 
 4. **命令示例**  
 
