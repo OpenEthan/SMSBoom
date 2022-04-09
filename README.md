@@ -13,7 +13,7 @@
 
 1. **下载本项目**  
 
-   - 使用Git:  
+   - 方法一：使用Git:  
 
    ```shell
    git clone https://github.com/AdminWhaleFall/SMSBoom.git/
@@ -22,10 +22,10 @@
    > 墙国加速
    >  
    > ```shell
-   > git clone https://github.com/AdminWhaleFall/SMSBoom.git
+   > git clone https://github.do/https://github.com/AdminWhaleFall/SMSBoom.git
    > ```  
 
-   - 点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
+   - 方法二：点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
 
 2. **配置环境**  
 
@@ -109,5 +109,4 @@ pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
 ```python
 pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 ```
-
 
