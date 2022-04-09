@@ -11,7 +11,7 @@
 
 ## Quick Start
 
-1. **下载本项目**  
+### 下载本项目  
 
 - 方法一：使用Git:  
 
@@ -27,7 +27,7 @@ git clone https://github.com/AdminWhaleFall/SMSBoom.git/
 
 - 方法二：点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
 
-2. **配置环境**  
+### 配置环境  
 
 > **请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上！**  
 
@@ -53,13 +53,12 @@ pipenv run python smsboom.py # windows
 
 若无报错，输出帮助信息，则说明环境已经正确安装。
 
-1. **运行**  
+### 运行  
 
-- 帮助信息  
 ```python
+# 输出帮助信息
 pipenv run python smsboom.py --help # windows
 pipenv run python3 smsboom.py --help # linux
-# 输出
 
 Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...    
 Options:
@@ -89,7 +88,7 @@ Options:
 --help                  Show this message and exit.
 ```
 
-4. **命令示例**  
+### 命令示例  
 
 启动64个线程,轰炸一个人的手机号(198xxxxxxxx),只轰炸一波。
 
@@ -103,10 +102,43 @@ pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx
 pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
 ```
 
-
 启动64个线程,轰炸多个人的手机号(138xxx,139xxxx),启动循环轰炸,每个循环间隔60秒。
 
 ```python
 pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 ```
+
+## Development
+
+程序提供接口调试工具，但目前还不完善，欢迎前端大佬 PR。  
+调试工具以 `Flask` 为后端，`vue` 为前端，实现前后端分离。  
+目前只有测试接口，添加接口的功能。
+
+### Flask 前端调试
+
+> **前提是已经根据前文 Quick Start 的方式安装好 pipenv 环境**
+
+```shell
+pipenv run python flask_app/app.py
+# 输出
+ Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:10981 
+ * Running on http://192.168.5.202:10981 (访问链接)(Press CTRL+C to quit)
+```
+
+默认监听 *0.0.0.0:10981* 地址,浏览器访问[http://127.0.0.1:10981](http://127.0.0.1:10981)若无意外,就可以出现前端调试界面。
+
+1. WebAPI
+`/downloadapi/`:GET 出现当前 api.json 文件的内容。
+`/testapi/`:POST 给定抓取的api，测试请求。
+`/submitapi/`:POST 提交当前的api到 api.json 文件。
+
+
+
 

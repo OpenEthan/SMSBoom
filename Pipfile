@@ -10,6 +10,7 @@ httpx = "*"
 pydantic = "*"
 click = "*"
 loguru = "*"
+urllib3 = "*"
 
 [dev-packages]
 
