@@ -7,9 +7,9 @@ import click
 import json
 import httpx
 from loguru import logger
-from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
 import time
+import sys
 
 from utils import API, default_header
 
@@ -33,7 +33,8 @@ def load_json() -> List[API]:
     json_path = pathlib.Path(path, 'api.json')
     if not json_path.exists():
         logger.error("Json file not exists!")
-        return None
+        # return None
+        raise ValueError
 
     with open(json_path.resolve(), mode="r", encoding="utf8") as j:
         try:
@@ -46,7 +47,8 @@ def load_json() -> List[API]:
             return APIs
         except Exception as why:
             logger.error(f"Json file syntax error:{why}")
-            return None
+            # return None
+            raise ValueError
 
 
 def load_getapi() -> list:
@@ -56,7 +58,8 @@ def load_getapi() -> list:
     json_path = pathlib.Path(path, 'GETAPI.json')
     if not json_path.exists():
         logger.error("GETAPI.json file not exists!")
-        return None
+        # return None
+        raise ValueError
 
     with open(json_path.resolve(), mode="r", encoding="utf8") as j:
         try:
@@ -65,7 +68,8 @@ def load_getapi() -> list:
             return datas
         except Exception as why:
             logger.error(f"Json file syntax error:{why}")
-            return None
+            # return None
+            raise ValueError
 
 
 def reqAPI(api: API, client: httpx.Client) -> httpx.Response:
@@ -109,14 +113,19 @@ def req(api: Union[API, str], phone: tuple):
 def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = False):
     """传入线程数和手机号启动轰炸,支持多手机号"""
     logger.info(f"循环模式:{super},手机号:{phone},线程数:{thread},循环间隔:{interval}")
+
     with ThreadPoolExecutor(max_workers=thread) as pool:
+        try:
+            _api = load_json()
+            _api_get = load_getapi()
+        except ValueError:
+            logger.error("接口获取出错!请update更新接口.")
+            sys.exit(1)
         i = 0
         if super:
             while True:
                 i += 1
                 logger.success(f"第{i}波轰炸开始！")
-                _api = load_json()
-                _api_get = load_getapi()
                 for api in _api:
                     pool.submit(req, api, phone)
                 for api_get in _api_get:
@@ -124,12 +133,32 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
                 logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
                 time.sleep(interval)
         else:
-            _api = load_json()
-            _api_get = load_getapi()
             for api in _api:
                 pool.submit(req, api, phone)
             for api_get in _api_get:
                 pool.submit(req, api_get, phone)
+
+
+@click.command()
+@click.option("-p", "--proxy", help="GitHub 代理镜像(默认github.do)", default="https://github.do/")
+def update(proxy: str):
+    """从 github 获取最新接口"""
+    GETAPI_json_url = f"{proxy}https://raw.githubusercontent.com/AdminWhaleFall/SMSBoom/master/GETAPI.json"
+    API_json_url = f"{proxy}https://raw.githubusercontent.com/AdminWhaleFall/SMSBoom/master/api.json"
+    logger.info(f"正在从GitHub拉取最新接口!")
+    try:
+        with httpx.Client(verify=False, timeout=10) as client:
+            GETAPI_json = client.get(GETAPI_json_url).content.decode(encoding="utf8")
+            api_json = client.get(API_json_url).content.decode(encoding="utf8")
+            
+    except Exception as why:
+        logger.error(f"拉取更新失败:{why}请多尝试几次!")
+    else:
+        with open(pathlib.Path(path, "GETAPI.json").absolute(), mode="w", encoding="utf8") as a:
+            a.write(GETAPI_json)
+        with open(pathlib.Path(path, "api.json").absolute(), mode="w", encoding="utf8") as a:
+            a.write(api_json)
+        logger.success(f"接口更新成功!")
 
 
 @click.group()
@@ -138,6 +167,7 @@ def cli():
 
 
 cli.add_command(run)
+cli.add_command(update)
 
 
 if __name__ == "__main__":
