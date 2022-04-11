@@ -1,6 +1,6 @@
 ![logo](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/smsboom-logo.png)
 
-![test](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/test2.gif)
+![test](img/test2.gif)
 
 ## Feature
 
