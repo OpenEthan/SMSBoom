@@ -1,0 +1,533 @@
+[
+    [
+        "https://www.decathlon.com.cn/zh/ajax/rest/model/atg/userprofiling/ProfileActor/send-mobile-verification-code",
+        "111",
+        "迪卡侬",
+        "POST",
+        {
+            "countryCode": "CN",
+            "mobile": "[phone]"
+        },
+        "https://www.decathlon.com.cn/zh/create"
+    ],
+    [
+        "https://www.guhai.com.cn/front/member/sendSmsCode",
+        60,
+        "股海网",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "https://www.guhai.com.cn/register.html"
+    ],
+    [
+        "http://www.lll.plus/sendCode/",
+        60,
+        "LLL的个人blog",
+        "POST",
+        {
+            "tel": "[phone]",
+            "forgetPwd": ""
+        },
+        "http://www.lll.plus/register/"
+    ],
+    [
+        "https://www.xcxui.com/index/register/getcode.html",
+        60,
+        "企米子",
+        "POST",
+        {
+            "tel": "[phone]"
+        },
+        "https://www.xcxui.com/index/register"
+    ],
+    [
+        "https://id.pgyer.com/user/getRegisterCode",
+        60,
+        "蒲公英",
+        "POST",
+        {
+            "tel": "[phone]",
+            "callingCode": "86",
+            "mode": "tel"
+        },
+        "https://id.pgyer.com/user/register?mode=tel"
+    ],
+    [
+        "https://erp.abiz.com/mobilecode/sendMobileCode",
+        60,
+        "百卓优采",
+        "POST",
+        {
+            "mobile": "[phone]",
+            "captcha": ""
+        },
+        "https://erp.abiz.com/register"
+    ],
+    [
+        "https://brand.yunbeilou.com/index.php/smssend",
+        30,
+        "云背篓",
+        "POST",
+        {
+            "phone": "[phone]",
+            "v": "yes"
+        },
+        "https://brand.yunbeilou.com/index.php/register"
+    ],
+    [
+        "https://m.php.cn/account/phone_code.html",
+        60,
+        "PHP中文网",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://m.php.cn/reg.html"
+    ],
+    [
+        "http://dhba.12321.cn/api/verifycode",
+        60,
+        "12321",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "http://dhba.12321.cn/user/register"
+    ],
+    [
+        "https://www.ztestin.com/users/send/vercode",
+        60,
+        "Testin众测",
+        "POST",
+        {
+            "phone": "[phone]",
+            "type": "register",
+            "voice": "0"
+        },
+        "https://www.ztestin.com/users/register?from=menu"
+    ],
+    [
+        "http://maker.haier.net/client/user/sendregistervcode.html",
+        60,
+        "海尔",
+        "POST",
+        {
+            "account": "[phone]"
+        },
+        "http://maker.haier.net/client/mobile/register.html"
+    ],
+    [
+        "https://www.feimaoyun.com/index.php/invite/h5sendmsg",
+        30,
+        "飞猫云",
+        "POST",
+        {
+            "pcode": "+86",
+            "phone": "[phone]"
+        },
+        "https://yq.jingfile.com/static/invite/register.html?type=3&code=FM666685N0UFSVIP"
+    ],
+    [
+        "https://end.huajuetech.com/api/sendCode",
+        60,
+        "华觉数字化平台",
+        "POST",
+        {
+            "mobile": "[phone]",
+            "email": "null",
+            "verfy_method": "mobile"
+        },
+        "https://end.huajuetech.com/admin.php/system/Passport/regist.html"
+    ],
+    [
+        "https://wenz.jxnews.com.cn/ms/index.php/Home/User/get_yzm",
+        120,
+        "问政江西",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://wenz.jxnews.com.cn/ms/index.php/Home/User/register/"
+    ],
+    [
+        "http://api.hndyjyfw.gov.cn/djapi/mobileVerify",
+        60,
+        "河南智慧党建",
+        "POST",
+        {
+            "phone": "[phone]",
+            "verifytype": "1"
+        },
+        "http://www.hndyjyfw.gov.cn/register.html"
+    ],
+    [
+        "https://cloud.666idc.com/index/login/sendsms.html",
+        60,
+        "陆陆陆云安全",
+        "POST",
+        {
+            "mobile": "[phone]",
+            "mobile_pre": "86"
+        },
+        "https://cloud.666idc.com/index/login/register"
+    ],
+    [
+        "https://dz.blizzard.cn/action/user/mobile/captcha",
+        60,
+        "网易",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "https://dz.blizzard.cn/register"
+    ],
+    [
+        "https://www.codeseeding.com/loginUser/toSend",
+        60,
+        "码云社",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://www.codeseeding.com/index"
+    ],
+    [
+        "http://sso.rcsd.cn/regist/getVerifyCode",
+        120,
+        "人才山东",
+        "POST",
+        {
+            "personcall": "[phone]"
+        },
+        "http://sso.rcsd.cn/regist/registeHome"
+    ],
+    [
+        "http://sso.mwr.cn/suserRegister/verifyAccountAndphone.action",
+        60,
+        "水利部",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "http://sso.mwr.cn/examine/getexamines.jsp"
+    ],
+    [
+        "http://ut7.whu.edu.cn/Home/studentCommon/Student_getVerifyCode",
+        60,
+        "七联大学",
+        "POST",
+        {
+            "phoneNumber": "[phone]",
+            "sendType": "0"
+        },
+        "http://ut7.whu.edu.cn/Home/studentCommon/studentLogin.jsp"
+    ],
+    [
+        "https://www.0101ssd.com/user/sendmsg",
+        60,
+        "闪德资讯",
+        "POST",
+        {
+            "mobile": "[phone]",
+            "event": "register"
+        },
+        "https://www.0101ssd.com/"
+    ],
+    [
+        "https://mskzkt.jse.edu.cn/baseApi/user/code/",
+        60,
+        "江苏省名师空中课堂",
+        "POST",
+        {
+            "mobile": "[phone]",
+            "type": "1"
+        },
+        "https://mskzkt.jse.edu.cn/baseApi/user/code/"
+    ],
+    [
+        "https://csff.cutv.com/wapi/users/sendregcode",
+        60,
+        "CSFF短片",
+        "POST",
+        {
+            "telphone": "[phone]"
+        },
+        "https://csff.cutv.com/register"
+    ],
+    [
+        "http://rswb.gx12333.net/member/getRegisterphoneCode.jspx",
+        60,
+        "广西人社厅",
+        "POST",
+        {
+            "aae005": "[phone]",
+            "aac003": "刘萌萌",
+            "aac002": "210212198506035924",
+            "notkeyflag": "1"
+        },
+        "http://rswb.gx12333.net/member/register.jhtml"
+    ],
+    [
+        "https://www.maxell-dm.cn/Code/CheckImage.aspx",
+        60,
+        "麦克赛尔数字映像",
+        "POST",
+        {
+            "action": "send",
+            "txtMember_Name": "[phone]"
+        },
+        "https://www.maxell-dm.cn/register.aspx"
+    ],
+    [
+        "http://main.jiajiaozaixian.com//reginfo/sendRankByMobileReginfo.action",
+        60,
+        "宝提分",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "http://main.jiajiaozaixian.com/zhuce/student/zhuce_xy1.jsp?"
+    ],
+    [
+        "http://www.cnppump.ltd/Service/UserHandler.ashx",
+        60,
+        "选型系统",
+        "GET",
+        {
+            "cmd": "GetTelVerifyCode",
+            "Tel": "[phone]"
+        },
+        "http://www.cnppump.ltd/Register/RegisterByTel.aspx"
+    ],
+    [
+        "http://vip.qianlima.com/rest/u/api/user/register/mobile/code",
+        60,
+        "千里马网信科技",
+        "POST",
+        {
+            "tips": "1",
+            "shouji": "[phone]"
+        },
+        "http://vip.qianlima.com/register.html"
+    ],
+    [
+        "https://baodingyun.com.cn/register/send_registerSMS.html",
+        60,
+        "保定云",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://baodingyun.com.cn/register.html"
+    ],
+    [
+        "http://www.gm5.com/auth/registerSms.html",
+        60,
+        "欢动游戏",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "http://www.gm5.com/auth/register.html"
+    ],
+    [
+        "https://www.maiwe.com.cn/index/sendcode.html",
+        60,
+        "迈威",
+        "GET",
+        {
+            "tel": "[phone]"
+        },
+        "https://www.maiwe.com.cn/index/register.html"
+    ],
+    [
+        "https://www.dehua.net/include/ajax.php?service=siteConfig&action=getphoneVerify&type=signup&phone=[phone]&areaCode=86",
+        60,
+        "憨鼠社区",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "https://user.daojia.com/mobile/getcode?mobile=[phone]&newVersion=1&bu=112",
+        60,
+        "天鹅到家",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "http://ks.ndzhugong.com/getVerificationCode?phone=[phone]&password=&smscode=",
+        60,
+        "诺达筑工",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "http://211.149.170.226:8201/dczp-cloud-client/rrs/user/sendSms?[phone]&[phone]&smsMode=2",
+        60,
+        "栋才智慧",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "http://wf.zhuanjipx.com:8084//api-user/zjUsersPersonal/getSmsCode?mobile=[phone]&mobileCodeId=a87c9338-43a1-66ea-8ce7-1b1ac7c39d69",
+        60,
+        "工伤预防网上培训平台",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "https://sdjn-web.yxlearning.com/sendphoneCode.gson",
+        60,
+        "济宁专技",
+        "POST",
+        {
+            "phone": "[phone]",
+            "sendType": "4"
+        },
+        "https://sdjn-web.yxlearning.com/staffRegister.shtml"
+    ],
+    [
+        "http://www.yddzgc.com/bid-app/api/sys/code?phone=[phone]&type=1",
+        60,
+        "宁夏伊地地质工程有限公司",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "http://zycp.qcdxs.com:5001/sms/sendsms",
+        60,
+        "青春大学说",
+        "POST",
+        {
+            "phone_number": "[phone]"
+        },
+        "http://zycp.qcdxs.com/user/register.html"
+    ],
+    [
+        "https://api.gzxyld.cn/HuiEbid/HuiEbidServer/doSendSms/getSms",
+        60,
+        "兴业利达电子招投标平台",
+        "POST",
+        {
+            "username": "[phone]",
+            "type": "regUser",
+            "mobile": "PC"
+        },
+        "https://www.gzxyld.cn/HuiEbid/view/register.html"
+    ],
+    [
+        "https://v1.alphazone-data.cn/academy/api/v1/sendsms",
+        60,
+        "火象",
+        "POST",
+        {
+            "temp": "1",
+            "phone": "[phone]"
+        },
+        "https://www.alphazone.com.cn/register.html"
+    ],
+    [
+        "https://www.vipexam.cn/user/identifyingCode.action",
+        60,
+        "中科教育",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://www.vipexam.cn/register.html"
+    ],
+    [
+        "https://uc.csdhe.com/v1/sms/send?mobile=[phone]&apptype=examWeb",
+        60,
+        "聚题库",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "https://jssnd.edu.cn/apiu/v1/register/auth",
+        60,
+        "苏州高新区教育局",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://jssnd.edu.cn/register.html"
+    ],
+    [
+        "http://zhuanjipx.com:8082//api-user/zjUsersPersonal/getSmsCode?mobile=[phone]&mobileCodeId=685110c6-cef4-bb01-8f4d-19ea89f4d3f8",
+        60,
+        "专业技术人员继续教育平台",
+        "GET",
+        {},
+        ""
+    ],
+    [
+        "https://sdta-web.yxlearning.com/sendphoneCode.gson",
+        60,
+        "泰安专技",
+        "POST",
+        {
+            "phone": "[phone]",
+            "sendType": "4"
+        },
+        "https://sdta-web.yxlearning.com/staffRegister.shtml"
+    ],
+    [
+        "https://www.vipexam.cn/user/identifyingCode.action",
+        60,
+        "志睿择",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "https://www.vipexam.cn/register.html"
+    ],
+    [
+        "https://www.bugbank.cn/api/verifymobile",
+        90,
+        "漏洞银行",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "https://www.bugbank.cn/bbe/register.html"
+    ],
+    [
+        "https://www.clssn.com/jhxtapi/web/Login/sendSmsCode",
+        60,
+        "中国劳动保障新闻网",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "https://www.clssn.com/register.html"
+    ],
+    [
+        "http://gpa-gd.scnu.edu.cn/member/index/public_send_code.html",
+        60,
+        "广东省心理学会",
+        "POST",
+        {
+            "phone": "[phone]"
+        },
+        "http://gpa-gd.scnu.edu.cn/member/index/register.html?siteid=1"
+    ],
+    [
+        "https://www.feeclouds.com/homepage/register/send",
+        60,
+        "费耘网",
+        "POST",
+        {
+            "mobile": "[phone]"
+        },
+        "https://www.feeclouds.com/register.html"
+    ]
+]
