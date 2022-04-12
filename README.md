@@ -30,28 +30,33 @@
    ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/e.g.1.png)
   
    2. `Win`+`R` 打开cmd.输入存放的盘符.例如: `E:` 然后cd到文件夹,例如 `cd SMS`
-   ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/cmd.png)
+   ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/cmd1.png)
    
    3. 确认 cmd 路径是 EXE 所在路径后,cmd 输入:`smsboom_pyinstall.exe`,若出现命令提示,则说明脚本已正常运行. 
    ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/cmd2.png)
 
-   4. 传递参数.  
-    命令示例:  
+   5. 使用前必须更新一遍最新接口
+    ```shell
+    smsboom_install.exe update
+    ```  
+    > 若更新接口出现错误 `ssl_`,请参见 [issue](https://github.com/AdminWhaleFall/SMSBoom/issues/2) **关闭代理软件**再 update.
+
+   7. 传递参数,命令示例:
 
     启动64个线程,轰炸一个人的手机号(198xxxxxxxx),只轰炸一波。
-   ```python
+   ```shell
    smsboom_install.exe run -t 64 -p 198xxxxxxxxx
    ```
 
    启动64个线程,轰炸多个人的手机号(19xxxxxxx),启动循环轰炸，每个循环间隔60秒  
 
-   ```python
+   ```shell
    smsboom_install.exe run -t 64 -p 198xxxxxxxxx -s -i 60
    ```
 
    启动64个线程,轰炸多个人的手机号(138xxx,139xxxx),启动循环轰炸,每个循环间隔60秒。  
 
-   ```python
+   ```shell
    smsboom_install.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
    ```
 
@@ -100,7 +105,7 @@ pipenv run python smsboom.py # windows
 
 ### 运行  
 
-```python
+```shell
 # 输出帮助信息
 pipenv run python smsboom.py --help # windows
 pipenv run python3 smsboom.py --help # linux
@@ -117,7 +122,7 @@ update  从 github 获取最新接口
 
 帮助信息:
 
-```python
+```shell
 pipenv run python smsboom.py run --help # windows
 pipenv run python3 smsboom.py run --help # linux
 
@@ -137,19 +142,19 @@ Options:
 
 启动64个线程,轰炸一个人的手机号(198xxxxxxxx),只轰炸一波。
 
-```python
+```shell
 pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx
 ```
 
 启动64个线程,轰炸多个人的手机号(19xxxxxxx),启动循环轰炸，每个循环间隔60秒
 
-```python
+```shell
 pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
 ```
 
 启动64个线程,轰炸多个人的手机号(138xxx,139xxxx),启动循环轰炸,每个循环间隔60秒。
 
-```python
+```shell
 pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 ```
 
