@@ -562,5 +562,18 @@
         "data": {
             "mobile": "[phone]"
         }
+    },
+    {
+        "desc": "语雀web",
+        "url": "https://www.yuque.com/api/validation_codes",
+        "method": "POST",
+        "header": {
+            "referer": "https://www.yuque.com/register"
+        },
+        "data": {
+            "target": "[phone]",
+            "action": "register",
+            "channel": "sms"
+        }
     }
 ]
