@@ -36,8 +36,14 @@ def json2sqlite():
             header=str(js['header'])
         )
         # print(api.desc)
-        db.session.add(api)
-    db.session.commit()
+        try:
+            db.session.add(api)
+            db.session.commit()
+            logger.info(f"{api.desc} 写入成功!")
+        except Exception as e:
+            db.session.rollback()  # 回滚
+            logger.error(f"{api.desc}写入数据库错误:{e}")
+
     logger.success("json To sqlite 成功!")
 
 

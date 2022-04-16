@@ -1,0 +1,9 @@
+{% extends 'admin/model/edit.html' %}
+
+{% block body %}
+<h2>短信接口添加</h2>
+<p>替换字符: 手机号<code>[phone]</code> 时间戳<code>[timestamp]</code></p>
+{{ super() }}
+<input type="button" class="btn btn-primary" value="测试接口">
+{% endblock %}
+

@@ -518,15 +518,6 @@
         }
     },
     {
-        "desc": "志睿择",
-        "url": "https://www.vipexam.cn/user/identifyingCode.action",
-        "method": "POST",
-        "header": "",
-        "data": {
-            "phone": "[phone]"
-        }
-    },
-    {
         "desc": "漏洞银行",
         "url": "https://www.bugbank.cn/api/verifymobile",
         "method": "POST",
