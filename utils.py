@@ -81,11 +81,13 @@ class API(BaseModel):
 
     def replace_data(self, content: Union[str, dict], phone: str) -> str:
         # 统一转换成 str 再替换. ' -> "
-        content = str(content).replace("[phone]", phone).replace(
-            "[timestamp]", self.timestamp_new()).replace("'", '"')
+        if phone:
+            content = str(content).replace("[phone]", phone).replace(
+                "[timestamp]", self.timestamp_new()).replace("'", '"')
+        
         # 尝试 json 化
         try:
-            return json.loads(content)
+            return json.loads(content.replace("'", '"'))
         except:
             return content
 
@@ -93,7 +95,7 @@ class API(BaseModel):
         """返回整数字符串时间戳"""
         return str(int(datetime.now().timestamp()))
 
-    def handle_API(self, phone: str):
+    def handle_API(self, phone: str=None):
         """ 传入手机号处理 API
         :param API: one API basemodel
         :return: API basemodel

@@ -6,6 +6,10 @@ from pathlib import Path
 import json
 from flask_app import db, app
 from flask_app.model import Apis
+from utils import API
+
+json_path = Path(app.root_path).parent.joinpath(
+    "api.json")
 
 
 @click.command()
@@ -23,8 +27,7 @@ def init(drop):
 @logger.catch()
 def json2sqlite():
     """将json数据转为sqlite数据库"""
-    j = Path(app.root_path).parent.joinpath(
-        "api.json").read_text(encoding="utf8")
+    j = json_path.read_text(encoding="utf8")
 
     jss = json.loads(j)
     for js in jss:
@@ -48,6 +51,36 @@ def json2sqlite():
 
 
 @click.command()
+@logger.catch()
+def sqlite2json():
+    """将sqlite数据转为json"""
+    apis = Apis.query.all()
+    apis_ = []
+    for api in apis:
+        # print(api.url)
+        data = {
+            "desc": api.desc,
+            "url": api.url,
+            "method": api.method,
+            "data": api.data,
+            "header": api.header,
+        }
+        try:
+            api = API(**data).handle_API()
+            apis_.append(api.dict())
+        except:
+            pass
+
+    data = json.loads(json_path.read_text(encoding='utf8'))
+    with open(json_path, mode="w", encoding="utf8") as j:
+        try:
+            json.dump(data, j, ensure_ascii=False, sort_keys=False)
+            logger.success("sqlite->json 成功!")
+        except Exception:
+            logger.exception("写入到 json 文件错误!")
+
+
+@click.command()
 @click.option('--host', '-h', help='监听地址', default="0.0.0.0")
 @click.option('--port', '-p', help='监听端口', default=9090)
 def start(host, port):
@@ -63,6 +96,7 @@ def cli():
 cli.add_command(init)
 cli.add_command(start)
 cli.add_command(json2sqlite)
+cli.add_command(sqlite2json)
 
 if __name__ == "__main__":
     cli()
