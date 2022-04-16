@@ -24,8 +24,8 @@ class ApisModelVies(ModelView):
 
 class Apis(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # 主键
-    desc = db.Column(db.String(100), default="Default")  # 描述
-    url = db.Column(db.String(100), unique=True, nullable=False)  # 链接
+    desc = db.Column(db.String(20), default="Default")  # 描述
+    url = db.Column(db.String(9999), unique=True, nullable=False)  # 链接
     method = db.Column(db.Enum("GET","POST"), nullable=False)  # 请求方法
     header = db.Column(db.String(9999))  # 请求头
     data = db.Column(db.String(9999))  # 请求数据
