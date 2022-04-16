@@ -2,7 +2,11 @@
 # app 工厂函数
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import sys,os
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from  flask_babelex import Babel
+import sys
+import os
 from loguru import logger
 
 
@@ -22,19 +26,34 @@ logger.add(
     backtrace=True
 )
 
-
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = prefix + \
-    os.path.join(app.root_path, 'data.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的监控
+
+# app config
+
+
+class AppConfig:
+    SQLALCHEMY_DATABASE_URI = prefix + \
+        os.path.join(app.root_path, 'data.db')  # 数据库路径
+    SQLALCHEMY_TRACK_MODIFICATIONS = False  # 关闭对模型修改的监控
+    FLASK_ADMIN_SWATCH = "cerulean"  # admin 主题
+
+    # 密钥
+    SESSION_TYPE = 'filesystem'
+    SECRET_KEY = os.urandom(24)
+    
+    BABEL_DEFAULT_LOCALE = 'zh_CN'  # 汉化
+
+
+app.config.from_object(AppConfig)
+
+# 扩展
 db = SQLAlchemy(app)
+babel = Babel(app)
+
+admin = Admin(app, name="短信接口调试", template_mode='bootstrap3')
+from .model import ApisModelVies,Apis
+admin.add_view(ApisModelVies(Apis, db.session))
 
 # buleprint
 from .views import main as main_blueprint
 app.register_blueprint(main_blueprint)
-
-
-
-
-
