@@ -74,7 +74,7 @@
         "url": "https://pg.eeagd.edu.cn/ks/public/kszc/zcyzm.jsmeb",
         "method": "POST",
         "header": "",
-        "data": "\"[phone]\""
+        "data": "[phone]"
     },
     {
         "desc": "广东教育翔云",
@@ -565,5 +565,12 @@
             "action": "register",
             "channel": "sms"
         }
+    },
+    {
+        "desc": "甜糖app",
+        "url": "http://tiantang.mogencloud.com/web/api/login/code?phone=[phone]",
+        "method": "POST",
+        "header": "",
+        "data": ""
     }
 ]

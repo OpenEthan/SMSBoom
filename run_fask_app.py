@@ -58,6 +58,10 @@ def sqlite2json():
     apis_ = []
     for api in apis:
         # print(api.url)
+        if api.data is None:
+            api.data = ""
+        if api.header is None:
+            api.header = ""
         data = {
             "desc": api.desc,
             "url": api.url,
@@ -70,11 +74,10 @@ def sqlite2json():
             apis_.append(api.dict())
         except:
             pass
-
-    data = json.loads(json_path.read_text(encoding='utf8'))
+    print(apis_)
     with open(json_path, mode="w", encoding="utf8") as j:
         try:
-            json.dump(data, j, ensure_ascii=False, sort_keys=False)
+            json.dump(apis_, j, ensure_ascii=False, sort_keys=False)
             logger.success("sqlite->json 成功!")
         except Exception:
             logger.exception("写入到 json 文件错误!")
