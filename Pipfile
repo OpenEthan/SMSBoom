@@ -11,6 +11,9 @@ pydantic = "*"
 click = "*"
 loguru = "*"
 urllib3 = "*"
+flask-admin = "*"
+flask-sqlalchemy = "*"
+flask-babelex = "*"
 
 [dev-packages]
 
