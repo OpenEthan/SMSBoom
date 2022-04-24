@@ -11,7 +11,12 @@ jobs:
     runs-on: windows-latest
     
     steps: 
-    - name: Start job
+    - name: Setup Python
+      uses: actions/setup-python@v3.1.2
+      with:
+        # Version range or exact version of a Python version to use, using SemVer's version range syntax.
+        python-version: 3.6
+    - name: Run task
       run: |
        pipenv --python path\to\python
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
