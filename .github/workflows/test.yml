@@ -20,5 +20,6 @@ jobs:
        pipenv install
        cd D:\SMSBoom\SMSBoom
        ls
+       pipenv run python smsboom.py
 
 
