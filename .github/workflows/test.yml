@@ -4,20 +4,12 @@ on:
 jobs:
   Start:
     name: Start
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps: 
     - name: Start job
       run: |
-       sudo apt update
-       sudo apt install python3.6
-       sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
-       sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
-       git clone https://github.com/AdminWhaleFall/SMSBoom.git/
-       pip3 install pipenv
-       cd SMSBoom
-       pipenv install
-       pipenv run python3 smsboom.py
+       curl https://github.com/AdminWhaleFall/SMSBoom/releases/download/test/smsboom_pyinstall.exe
        
         
 
