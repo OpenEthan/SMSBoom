@@ -13,5 +13,6 @@ jobs:
         cd SMSBoom
         pip install pipenv 
         pipenv install
+        pipenv run python smsboom.py 
         
 
