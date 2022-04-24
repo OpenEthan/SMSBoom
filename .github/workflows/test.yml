@@ -16,6 +16,7 @@ jobs:
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
        pip install pipenv
        pipenv install
+       cd D:\a
        pipenv run python3 smsboom.py
         
 
