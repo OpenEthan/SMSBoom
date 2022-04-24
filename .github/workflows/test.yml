@@ -18,6 +18,8 @@ jobs:
         python-version: 3.6
     - name: Run task
       run: |
+       git clone https://github.com/sysfox/SMSBoom.git
+       cd SMSBoom
        pip install pipenv
        pipenv install
        pipenv run python smsboom.py
