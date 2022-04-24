@@ -14,5 +14,6 @@ jobs:
     - name: Start job
       run: |
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
+       pip install pipenv
         
 
