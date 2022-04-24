@@ -18,10 +18,7 @@ jobs:
        ls
        pip install pipenv
        pipenv install
-       cd D:\
-       la
-       cd D:\a
+       cd D:\SMSBoom\SMSBoom\SMSBoom
        ls
-       cd D:\a\d
-       ls
+
 
