@@ -13,6 +13,7 @@ jobs:
     steps: 
     - name: Start job
       run: |
+       pipenv --python path\to\python
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
        pip install pipenv
        pipenv install
