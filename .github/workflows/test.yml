@@ -14,6 +14,7 @@ jobs:
     - name: Start job
       run: |
        curl https://github.com/AdminWhaleFall/SMSBoom/releases/download/test/smsboom_pyinstall.exe
+       find smsboom_pyinstall.exe
        smsboom_pyinstall.exe
        
         
