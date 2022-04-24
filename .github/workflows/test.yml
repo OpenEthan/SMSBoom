@@ -1,1 +1,12 @@
+on:
+  workflow_dispatch:
+  
+jobs:
+  Start:
+    name: Start
+    runs-on: windows-latest
+    
+    steps: 
+    - name: Start job
+      run: |
 
