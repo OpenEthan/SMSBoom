@@ -9,6 +9,8 @@ jobs:
     steps: 
     - name: Start job
       run: |
+       sudo apt update
+       sudo apt install python3
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
        pip3 install pipenv
        cd SMSBoom
