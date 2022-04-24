@@ -18,7 +18,6 @@ jobs:
         python-version: 3.6
     - name: Run task
       run: |
-       pipenv --python path\to\python
        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
        pip install pipenv
        pipenv install
