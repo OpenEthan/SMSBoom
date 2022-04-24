@@ -4,15 +4,18 @@ on:
 jobs:
   Start:
     name: Start
-    runs-on: windows-latest
+    runs-on: ubutnu-latest
     
     steps: 
     - name: Start job
       run: |
-        git clone https://github.com/AdminWhaleFall/SMSBoom.git/
-        cd SMSBoom
-        pip install pipenv 
-        pipenv install
-        pipenv run python smsboom.py 
+       git clone https://github.com/AdminWhaleFall/SMSBoom.git/
+       apt update
+       apt install python3
+       pip3 install pipenv
+       cd SMSBoom
+       pipenv install
+       pipenv run python3 smsboom.py
+       
         
 
