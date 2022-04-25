@@ -8,7 +8,7 @@ on:
 jobs:
   Start:
     name: Start
-    runs-on: windows-latest
+    runs-on: ubutnu-latest
     
     steps: 
     - name: Setup Python
