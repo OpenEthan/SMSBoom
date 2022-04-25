@@ -159,19 +159,19 @@ Options:
 启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
 
 ```shell
-pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx
+python smsboom.py run -t 64 -p 198xxxxxxxxx
 ```
 
 启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒
 
 ```shell
-pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
 ```
 
 启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。
 
 ```shell
-pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 ```
 
 ## Development
