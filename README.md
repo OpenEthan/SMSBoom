@@ -61,7 +61,9 @@
    ```
 
 
-### 大佬运行 
+### 适用于大佬
+
+#### 下载项目
 
 - 方法一：使用Git:  
 
@@ -77,38 +79,53 @@ git clone https://github.com/AdminWhaleFall/SMSBoom.git/
 
 - 方法二：点击下载[项目压缩包](https://github.com/AdminWhaleFall/SMSBoom/archive/refs/heads/master.zip)并解压.  
 
-### 配置环境  
+#### 配置环境  
 
-> **请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上！**  
+**前提条件:** 请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上!  
 
-- 安装 pipenv 包管理工具.  
+有 `Python3.8` 环境的可以使用 `pipenv` 工具.
 
+1. 安装 pipenv 包管理工具.  
 ```shell
-pip install pipenv  # windows
-pip3 install pipenv # linux
+pip install pipenv
 ```
 
-- 为项目构建虚拟环境.  
-
+2. 为项目构建虚拟环境.  
 ```shell
-pipenv install
+pipenv install  # 仅使用轰*炸功能
+pipenv install --dev # 使用 webui 调试接口功能.
 ```
 
-- 尝试运行 smsboom.py  
-
+3. 尝试运行 smsboom.py  
 ```shell
-pipenv run python3 smsboom.py  # linux
-pipenv run python smsboom.py # windows
+pipenv shell # 激活虚拟环境
+python smsboom.py  # linux
 ```
 
 若无报错，输出帮助信息，则说明环境已经正确安装。
 
-### 运行  
+只有 `Python3.X` 环境的需要使用原生 `pip` 工具.
+
+1. 安装所需要的库
+```shell
+pip install -r requirements.txt # 仅使用轰*炸
+pip install -r requirements-dev.txt # 使用 webui
+```
+
+2. 尝试运行 smsboom.py
+```shell
+python smsboom.py 
+```
+
+若无报错，输出帮助信息，则说明环境已经正确安装。
+
+#### 运行  
+
+若使用虚拟环境,请先激活. `pipenv shell`
 
 ```shell
 # 输出帮助信息
-pipenv run python smsboom.py --help # windows
-pipenv run python3 smsboom.py --help # linux
+python smsboom.py --help
 
 Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...    
 Options:
@@ -123,8 +140,7 @@ update  从 github 获取最新接口
 帮助信息:
 
 ```shell
-pipenv run python smsboom.py run --help # windows
-pipenv run python3 smsboom.py run --help # linux
+python smsboom.py run --help
 
 Usage: smsboom.py run [OPTIONS]
 
@@ -169,7 +185,7 @@ pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 > **前提是已经根据前文 Quick Start 的方式安装好 pipenv 环境**
 
 ```shell
-pipenv shell #激活虚拟环境
+pipenv shell # 激活虚拟环境
 python run_flask_app.py start -p 9090 # 监听9090端口
 ```
 
