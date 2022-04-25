@@ -1,21 +1,19 @@
 [[source]]
-url = "https://pypi.doubanio.com/simple"
+url = "https://pypi.doubanio.com/simple/"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-flask-cors = "*"
 httpx = "*"
-pydantic = "*"
-click = "*"
 loguru = "*"
-urllib3 = "*"
-flask-admin = "*"
-flask-sqlalchemy = "*"
-flask-babelex = "*"
+click = "*"
+pydantic = "*"
 
 [dev-packages]
+flask = "*"
+flask-admin = "*"
+flask-babelex = "*"
+flask-sqlalchemy = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"

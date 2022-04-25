@@ -4,6 +4,8 @@ from . import main
 import json
 from ..model import Apis, API
 from ..utils import test_resq
+from .. import logger
+import httpx
 from flask_app import db
 from flask import request, jsonify
 
@@ -20,6 +22,9 @@ def testapi():
         api = API(**req)
         resp = test_resq(api, phone=req.get('phone'))
         print(resp.text)
-        return jsonify({"status": 0, "resp": resp.text})
+        return jsonify({"status": 0, "resp": f"{resp.text}"})
+    except httpx.HTTPError as why:
+        return jsonify({"status": 1, "resp": f"HTTP请求错误:{why}"})
     except Exception as why:
-        return jsonify({"status": 1, "resp": why})
+        logger.exception(why)
+        return jsonify({"status": 1, "resp": f"其他错误:{why}"})
