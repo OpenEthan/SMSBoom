@@ -22,7 +22,8 @@ jobs:
        cd SMSBoom
        pip3 install pipenv
        pipenv install
-       pipenv run python smsboom.py run -t 64 -p 18958009044
+       pipenv run python3 smsboom.py update
+       pipenv run python3 smsboom.py run -t 64 -p xxxxxxxxxx
        
 
 
