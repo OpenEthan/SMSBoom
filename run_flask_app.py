@@ -74,7 +74,7 @@ def sqlite2json():
             apis_.append(api.dict())
         except:
             pass
-    print(apis_)
+    # print(apis_)
     with open(json_path, mode="w", encoding="utf8") as j:
         try:
             json.dump(apis_, j, ensure_ascii=False, sort_keys=False)
