@@ -20,8 +20,8 @@ jobs:
       run: |
        git clone https://github.com/sysfox/SMSBoom.git
        cd SMSBoom
-       pip install pipenv
+       pip3 install pipenv
        pipenv install
-       pipenv run python smsboom.py
+       pipenv run python3 smsboom.py
 
 
