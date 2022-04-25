@@ -169,25 +169,39 @@ pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
 > **前提是已经根据前文 Quick Start 的方式安装好 pipenv 环境**
 
 ```shell
-pipenv run python flask_app/app.py
-# 输出
- Serving Flask app 'app' (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on all addresses (0.0.0.0)
-   WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://127.0.0.1:10981 
- * Running on http://192.168.5.202:10981 (访问链接)(Press CTRL+C to quit)
+pipenv shell #激活虚拟环境
+python run_flask_app.py start -p 9090 # 监听9090端口
 ```
 
-默认监听 *0.0.0.0:10981* 地址,浏览器访问[http://127.0.0.1:10981](http://127.0.0.1:10981)若无意外,就可以出现前端调试界面。
+**运行帮助:**
+```shell
+Usage: run_flask_app.py [OPTIONS] COMMAND [ARGS]...
 
-1. WebAPI
-`/downloadapi/`:GET 出现当前 api.json 文件的内容。  
-`/testapi/`:POST 给定抓取的api，测试请求。  
-`/submitapi/`:POST 提交当前的api到 api.json 文件。  
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  init         初始化数据库
+  json2sqlite  将json数据转为sqlite数据库
+  sqlite2json  将sqlite数据转为json
+  start        启动 flask app
+```
+
+```shell
+Usage: run_flask_app.py start [OPTIONS]
+
+  启动 flask app
+
+Options:
+  -h, --host TEXT     监听地址
+  -p, --port INTEGER  监听端口
+  --help              Show this message and exit.
+```
+
+默认监听 *0.0.0.0:9090* 地址,浏览器访问[http://127.0.0.1:9090/admin/](http://127.0.0.1:9090/admin/)若无意外,就可以出现前端调试界面。
+
+![](img/webui-test.png)  
+![](img/webui-test-2.png)  
 
 ## 企鹅🐧群
 
