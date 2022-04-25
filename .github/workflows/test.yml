@@ -8,7 +8,7 @@ on:
 jobs:
   Start:
     name: Start
-    runs-on: ubutnu-latest
+    runs-on: ubuntu-latest
     
     steps: 
     - name: Setup Python
