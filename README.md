@@ -43,18 +43,18 @@
 
    7. 传递参数,命令示例:
 
-    启动64个线程,轰*炸一个人的手机号(198xxxxxxxx),只轰*炸一波。
+    启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
    ```
 
-   启动64个线程,轰*炸多个人的手机号(19xxxxxxx),启动循环轰*炸，每个循环间隔60秒  
+   启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒  
 
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -s -i 60
    ```
 
-   启动64个线程,轰*炸多个人的手机号(138xxx,139xxxx),启动循环轰*炸,每个循环间隔60秒。  
+   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。  
 
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
@@ -92,7 +92,7 @@ pip install pipenv
 
 2. 为项目构建虚拟环境.  
 ```shell
-pipenv install  # 仅使用轰*炸功能
+pipenv install  # 仅使用轰//炸功能
 pipenv install --dev # 使用 webui 调试接口功能.
 ```
 
@@ -108,7 +108,7 @@ python smsboom.py  # linux
 
 1. 安装所需要的库
 ```shell
-pip install -r requirements.txt # 仅使用轰*炸
+pip install -r requirements.txt # 仅使用轰//炸
 pip install -r requirements-dev.txt # 使用 webui
 ```
 
@@ -131,11 +131,11 @@ Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...
 Options:
 --help  Show this message and exit.
 Commands:
-run     传入线程数和手机号启动轰*炸,支持多手机号
+run     传入线程数和手机号启动轰//炸,支持多手机号
 update  从 github 获取最新接口
 ```
 
-- 启动轰*炸  
+- 启动轰//炸  
 
 帮助信息:
 
@@ -144,7 +144,7 @@ python smsboom.py run --help
 
 Usage: smsboom.py run [OPTIONS]
 
-传入线程数和手机号启动轰*炸,支持多手机号
+传入线程数和手机号启动轰//炸,支持多手机号
 
 Options:
 -t, --thread INTEGER    线程数(默认64)
@@ -156,19 +156,19 @@ Options:
 
 ### 命令示例  
 
-启动64个线程,轰*炸一个人的手机号(198xxxxxxxx),只轰*炸一波。
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
 
 ```shell
 pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx
 ```
 
-启动64个线程,轰*炸多个人的手机号(19xxxxxxx),启动循环轰*炸，每个循环间隔60秒
+启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒
 
 ```shell
 pipenv run python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
 ```
 
-启动64个线程,轰*炸多个人的手机号(138xxx,139xxxx),启动循环轰*炸,每个循环间隔60秒。
+启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。
 
 ```shell
 pipenv run python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
