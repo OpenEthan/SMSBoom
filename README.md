@@ -236,9 +236,12 @@ Options:
 
 > ~~丑陋的自拍 )逃~~
 
+## Star ♥ 趋势图
+
+<img src="https://starchart.cc/adminwhalefall/smsboom.svg">
+
 ## 企鹅🐧群
 
 欢迎加入企鹅群提出问题和建议！！！
 
 ![企鹅群 QR](https://cdn.jsdelivr.net/gh/AdminWhaleFall/Pic@master/img/20220409151539.jpg)
-
