@@ -88,8 +88,6 @@ def req(api: Union[API, str], phone: tuple):
     else:
         phone_lst = [phone]
 
-    # 自动添加 Referer
-    default_header['Referer'] = api.url
     with httpx.Client(headers=default_header, verify=False) as client:
         for ph in phone_lst:
             try:

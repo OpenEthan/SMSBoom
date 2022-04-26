@@ -101,8 +101,11 @@ class API(BaseModel):
         :return: API basemodel
         """
         # 如果传入的 header 是字符串,就转为字典.
-        if (isinstance(self.header, str) and self.header):
-            self.header = json.loads(self.header.replace("'", '"'))
+        if self.header == "":
+            self.header = {}
+            self.header['Referer'] = self.url  # 增加 Referer
+        else:
+            self.header = self.replace_data(self.header, phone)
         
         self.data = self.replace_data(self.data, phone)
         self.url = self.replace_data(self.url, phone)

@@ -58,8 +58,12 @@ class API(BaseModel):
         :param API: one API basemodel
         :return: API basemodel
         """
-        if isinstance(self.header, str) and self.header:
+        if self.header == "":
+            self.header = {}
+            self.header['Referer'] = self.url  # 增加 Referer
+        else:
             self.header = self.replace_data(self.header, phone)
+            
         self.data = self.replace_data(self.data, phone)
         self.url = self.replace_data(self.url, phone)
         return self
