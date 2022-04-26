@@ -23,7 +23,7 @@ jobs:
           python-version: '3.8'
       
       - name: 🚀 Run SMSBoom Script
-        # 此处可以自定义命令行运行参数.
+        # 此处可以自定义命令行运行参数.替换手机号
         run: |
           pip3 install -r requirements.txt
-          python3 smsboom.py run -p 电话号码 -t 线程数
+          python3 smsboom.py run -p 19820294268 -t 32
