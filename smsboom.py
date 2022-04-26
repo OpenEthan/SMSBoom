@@ -50,7 +50,6 @@ def load_json() -> List[API]:
             # return None
             raise ValueError
 
-
 def load_getapi() -> list:
     """load GETAPI
     :return:
@@ -119,7 +118,8 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
             _api = load_json()
             _api_get = load_getapi()
         except ValueError:
-            logger.error("接口获取出错!请update更新接口.")
+            logger.error("读取接口出错!正在重新下载接口数据!....")
+            update()
             sys.exit(1)
         i = 0
         if super:
@@ -140,8 +140,7 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
 
 
 @click.command()
-@click.option("-p", "--proxy", help="[!!暂时弃用该选项!!]GitHub 代理镜像(默认github.do)", default="https://github.do/")
-def update(proxy: str):
+def update():
     """从 github 获取最新接口"""
     GETAPI_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/GETAPI.json"
     API_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/api.json"
@@ -153,7 +152,7 @@ def update(proxy: str):
             api_json = client.get(API_json_url, headers=default_header).content.decode(encoding="utf8")
             
     except Exception as why:
-        logger.error(f"拉取更新失败:{why}请多尝试几次!")
+        logger.error(f"拉取更新失败:{why}请关闭所有代理软件多尝试几次!")
     else:
         with open(pathlib.Path(path, "GETAPI.json").absolute(), mode="w", encoding="utf8") as a:
             a.write(GETAPI_json)
