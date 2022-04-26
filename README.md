@@ -83,7 +83,7 @@ git clone https://github.com/AdminWhaleFall/SMSBoom.git/
 
 **前提条件:** 请确保自己的电脑有 `python3.x` 的环境,推荐使用 `3.8` 及以上!  
 
-有 `Python3.8` 环境的可以使用 `pipenv` 工具.
+方案一: 有 `Python3.8` 环境的可以使用 `pipenv` 工具.
 
 1. 安装 pipenv 包管理工具.  
 ```shell
@@ -102,9 +102,9 @@ pipenv shell # 激活虚拟环境
 python smsboom.py  # linux
 ```
 
-若无报错，输出帮助信息，则说明环境已经正确安装。
+若无报错，输出帮助信息，则说明环境已经正确安装。若报错请使用方案二
 
-只有 `Python3.X` 环境的需要使用原生 `pip` 工具.
+方案二: 只有 `Python3.X` 环境的需要使用原生 `pip` 工具.
 
 1. 安装所需要的库
 ```shell
@@ -218,6 +218,18 @@ Options:
 
 ![](img/webui-test.png)  
 ![](img/webui-test-2.png)  
+
+## 赞助
+[爱发电🔗](https://afdian.net/@smsboom)  
+**微/信🔗**  
+![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/wx_pay.jpg)  
+**支/付/宝🔗**  
+![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/aliyun_pay.jpg)  
+
+> 赞助的金额将用于我每月治疗 **抑/郁症** 的支出.谢谢大家的支持和鼓励! **比心ing**
+
+![](img/mypic.png)  
+> ~~丑陋的自拍 )逃~~
 
 ## 企鹅🐧群
 
