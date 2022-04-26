@@ -89,7 +89,7 @@ def req(api: Union[API, str], phone: tuple):
         phone_lst = [_ for _ in phone]
     else:
         phone_lst = [phone]
-
+    default_header['Referer'] = api.url
     with httpx.Client(headers=default_header, verify=False) as client:
         for ph in phone_lst:
             try:

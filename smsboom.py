@@ -70,7 +70,6 @@ def load_getapi() -> list:
             # return None
             raise ValueError
 
-
 def reqAPI(api: API, client: httpx.Client) -> httpx.Response:
     if isinstance(api.data, dict):
         resp = client.request(method=api.method, json=api.data,
@@ -89,6 +88,8 @@ def req(api: Union[API, str], phone: tuple):
     else:
         phone_lst = [phone]
 
+    # 自动添加 Referer
+    default_header['Referer'] = api.url
     with httpx.Client(headers=default_header, verify=False) as client:
         for ph in phone_lst:
             try:
