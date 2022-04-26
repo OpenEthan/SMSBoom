@@ -77,7 +77,7 @@ def sqlite2json():
     # print(apis_)
     with open(json_path, mode="w", encoding="utf8") as j:
         try:
-            json.dump(apis_, j, ensure_ascii=False, sort_keys=False)
+            json.dump(apis_, j, ensure_ascii=False, sort_keys=False, indent=4)
             logger.success("sqlite->json 成功!")
         except Exception:
             logger.exception("写入到 json 文件错误!")
