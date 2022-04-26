@@ -74,7 +74,7 @@
         "url": "https://pg.eeagd.edu.cn/ks/public/kszc/zcyzm.jsmeb",
         "method": "POST",
         "header": "",
-        "data": "\"[phone]\""
+        "data": "[phone]"
     },
     {
         "desc": "广东教育翔云",
@@ -606,5 +606,37 @@
             "mobile": "[phone]",
             "register": "0"
         }
+    },
+    {
+        "desc": "乐教乐学",
+        "url": "http://id.lejiaolexue.com/api/sendvericode.ashx?phone=[phone]",
+        "method": "GET",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "云杏HIS系统(九明珠)",
+        "url": "http://www.yhis999.cn/yunhis/register.do?act=lable&type=yzm",
+        "method": "POST",
+        "header": "",
+        "data": "{'lxdh': [phone]}"
+    },
+    {
+        "desc": "秘塔写作",
+        "url": "https://xiezuocat.com/verify?type=signup",
+        "method": "POST",
+        "header": "",
+        "data": {
+            "phone": "86-[phone]"
+        }
+    },
+    {
+        "desc": "CNMO 网站",
+        "url": "http://passport.cnmo.com/index.php?c=Member_Ajax_Register&m=SendMessageCode&Jsoncallback=jQuery18306147606011785998_[timestamp]&mobile=[phone]&type=5&_=[timestamp]",
+        "method": "POST",
+        "header": {
+            "Referer": "http://passport.cnmo.com/index.php"
+        },
+        "data": ""
     }
 ]
