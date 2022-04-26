@@ -221,14 +221,19 @@ Options:
 
 ## 赞助
 [爱发电🔗](https://afdian.net/@smsboom)  
-**微/信🔗**  
-![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/wx_pay.jpg)  
-**支/付/宝🔗**  
-![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/aliyun_pay.jpg)  
+
+**微/信 && 支/付宝🔗**  
+<center class="half">
+<img src="https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/wx_pay.jpg" width=40%/>
+<img src="https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/aliyun_pay.jpg" width=40%/>
+</center>
 
 > 赞助的金额将用于我每月治疗 **抑/郁症** 的支出.谢谢大家的支持和鼓励! **比心ing**
 
-![](img/mypic.png)  
+<center class="half">
+<img src="img/mypic.png" width=70%/>
+</center>
+
 > ~~丑陋的自拍 )逃~~
 
 ## 企鹅🐧群
