@@ -636,5 +636,44 @@
         "method": "POST",
         "header": "",
         "data": ""
+    },
+    {
+        "desc": "DR钻戒web",
+        "url": "https://elove.darryring.com/api/crm/newGwLogin/getSMSValidCode?phone=[phone]&type=login",
+        "method": "GET",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "有享云商web",
+        "url": "https://mallapi.yofogo.com/biz-mall-application/v1/user/verifyCode/getVerifyCode?phone=[phone]&descriptionType=1&codeType=2",
+        "method": "GET",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "研才教育app存疑",
+        "url": "https://mall.yancais.com/api/sms/send",
+        "method": "POST",
+        "header": "",
+        "data": "phone=[phone]"
+    },
+    {
+        "desc": "成卓科技",
+        "url": "https://callphone.hnczkj.cn/app_api/json/sendSms",
+        "method": "POST",
+        "header": "",
+        "data": {
+            "phone": "[phone]",
+            "product": "biyingdianhua_ios",
+            "key": "mwoe093fwef"
+        }
+    },
+    {
+        "desc": "少年得到app",
+        "url": "http://logserver.igetcool.com/xdd/logsSdk.do?app=dedao&op=0&scr=1080*2340&os=Android&ov=11&chid=Android_xiaomi&uid=352393959&dv=M2102J2SC&dedaoTag=to7mttInRewLamVScggETtXdI2RHKcgX841WeCxMvnia3u8%252BwetrW9LTFyKJySVbCE9RFUyOv9rPfJRXQzA4JQ5S5G5AE5gMbxTnXDp1cpG3MkdUMoicXBNngj9KEbvhH3akC7K8p6SqrYV97yrr2AGk3xbplFZT7LZSBA9qJn4%253D&v=2&appv=4.21.0&net=wifi&aid=1&request_s=Vu7IwNuUpUBRyO3Ce0xsyiWvVmmtUc6e",
+        "method": "POST",
+        "header": "",
+        "data": "trace_time=1650984265625&trace_id=8CDCE55D4A681A6821AB5F10F1E60385&page_type=4&page_title=%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E9%A1%B5&refer_url=igetcool%3A%2F%2Fjuvenile.dedao.app%2Fgo%2Fmain%3Fparams_tab%3D0%26tab_name%3Ddiscover&tech_type=native&session_id=c21c6ccd834b43659a5a30cf19644e3c&url=igetcool%3A%2F%2Fjuvenile.dedao.passport%2Fpassport%2Fv2%2Flogin&duration=4760&sndd_oaid=ff7e9b1fa30e9492&ev=sndd_sensor_page&page_name=%E7%99%BB%E5%BD%95%E9%A1%B5&refer_page_name=%E9%A6%96%E9%A1%B5\\nsndd_oaid=ff7e9b1fa30e9492&trace_time=1650984265623&ev=sndd_sensor_get_verification_code&trace_id=382BD913F289BBD48008894F2BAFB0EF&tech_type=native&session_id=c21c6ccd834b43659a5a30cf19644e3c&phone_number=[phone]&is_success=true&fail_reason=&current_scene=%E6%B3%A8%E5%86%8C%E3%80%81%E7%99%BB%E5%BD%95\\nev=sndd_app_traffic&sourcePage=igetcool%3A%2F%2Fjuvenile.dedao.passport%2Fpassport%2Fv2%2Flogin&showtime=2022-04-26+22%3A44%3A25&even_type=page&currentPage=igetcool%3A%2F%2Fjuvenile.dedao.passport%2Fpassport%2Fv2%2Fsms&params=%7B%22params_source%22%3A%22source_splash%22%2C%22params_status%22%3A0%2C%22params_phone%22%3A%22198+2029+4261%22%2C%22params_content%22%3A%2286%22%7D&showDuration=5&timestamp=[timestamp]\\ntrace_time=[timestamp]&trace_id=D12200F8603B132278CEEFEAF095129B&tech_type=native&session_id=c21c6ccd834b43659a5a30cf19644e3c&title=%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81%E7%A0%81%E9%A1%B5%E9%9D%A2&params_source=source_splash&url=igetcool%3A%2F%2Fjuvenile.dedao.passport%2Fpassport%2Fv2%2Fsms&sndd_oaid=ff7e9b1fa30e9492&ev=sndd_sensor_view_app_page&params_phone=198+2029+4261&screen_name=com.dedao.comppassport.ui.sms.LoginSmsActivity&page_name=%E7%99%BB%E5%BD%95%E9%A1%B5&params_content=86&params_status=0"
     }
 ]
