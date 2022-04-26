@@ -634,9 +634,7 @@
         "desc": "CNMO 网站",
         "url": "http://passport.cnmo.com/index.php?c=Member_Ajax_Register&m=SendMessageCode&Jsoncallback=jQuery18306147606011785998_[timestamp]&mobile=[phone]&type=5&_=[timestamp]",
         "method": "POST",
-        "header": {
-            "Referer": "http://passport.cnmo.com/index.php"
-        },
+        "header": "",
         "data": ""
     }
 ]
