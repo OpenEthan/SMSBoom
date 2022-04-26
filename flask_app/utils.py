@@ -11,7 +11,6 @@ def test_resq(api: API, phone) -> httpx.Response:
     :return: httpx 请求对象.
     """
     api = api.handle_API(phone)
-    default_header['Referer'] = api.url
     with httpx.Client(headers=default_header, timeout=8) as client:
         if not isinstance(api.data, dict):
             print("data")
