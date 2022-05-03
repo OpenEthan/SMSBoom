@@ -58,9 +58,11 @@ class API(BaseModel):
         :param API: one API basemodel
         :return: API basemodel
         """
-        if self.header == "":
-            self.header = {}
-            self.header['Referer'] = self.url  # 增加 Referer
+        # 仅仅当传入 phone 参数时添加 Referer
+        if phone:
+            if self.header == "":
+                self.header = {}
+                self.header['Referer'] = self.url  # 增加 Referer
         else:
             self.header = self.replace_data(self.header, phone)
             
