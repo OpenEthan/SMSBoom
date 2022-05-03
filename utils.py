@@ -100,15 +100,19 @@ class API(BaseModel):
         :param API: one API basemodel
         :return: API basemodel
         """
-        # 如果传入的 header 是字符串,就转为字典.
         # 仅仅当传入 phone 参数时添加 Referer
+        # fix: 这段代码很有问题.......
         if phone:
+            # 进入的 header 是个字符串
             if self.header == "":
                 self.header = {}
                 self.header['Referer'] = self.url  # 增加 Referer
-        else:
-            self.header = self.replace_data(self.header, phone)
-        
+
+        self.header = self.replace_data(self.header, phone)
+        if not self.header.get('Referer'):
+            self.header['Referer'] = self.url  # 增加 Referer
+
         self.data = self.replace_data(self.data, phone)
         self.url = self.replace_data(self.url, phone)
+        # print(self)
         return self
