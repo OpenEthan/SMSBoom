@@ -100,7 +100,7 @@ def req(api: Union[API, str], phone: tuple):
                     resp = client.get(url=api, headers=default_header)
                     logger.info(f"GETAPI接口-{resp.text[:30]}")
             except httpx.HTTPError as why:
-                logger.error(f"{why.request.url}请求失败{why}")
+                logger.error(f"请求失败{why}")
 
 
 @click.command()
