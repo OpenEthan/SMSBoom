@@ -1,16 +1,10 @@
-# coding=utf-8
-# utils 实用工具类
-import sqlite3
-import json
-from datetime import datetime
-from pathlib import Path
+# encoding=utf8
+# 一些模型
 from pydantic import BaseModel
 from typing import Union, Optional
-
-default_header = {
-    "User-Agent": "Mozilla/5.0 (Linux; U; Android 10; zh-cn; Mi 10 Build/QKQ1.191117.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.147 Mobile Safari/537.36 XiaoMi/MiuiBrowser/13.5.40"
-}
-
+from datetime import datetime
+import json
+from utils import default_header
 
 class API(BaseModel):
     """处理自定义 API 数据"""
