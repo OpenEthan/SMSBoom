@@ -1,26 +1,19 @@
 # encoding=utf8
 # 短信测压主程序
+import json
 import pathlib
 import sys
-from typing import List, Union
-import click
-import json
-import httpx
-from loguru import logger
-from concurrent.futures import ThreadPoolExecutor
 import time
-import sys
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Union
 
-from utils import API, default_header
+import click
+import httpx
 
-# logger config
-logger.remove()
-logger.add(
-    sink=sys.stdout,
-    format="<green>{time:YYYY-MM-DD at HH:mm:ss}</green> - <level>{level}</level> - <level>{message}</level>",
-    colorize=True,
-    backtrace=True
-)
+from utils import default_header
+from utils.log import logger
+from utils.models import API
+from utils.req import reqFunc
 
 # current directory
 path = pathlib.Path(__file__).parent
@@ -70,38 +63,6 @@ def load_getapi() -> list:
             # return None
             raise ValueError
 
-def reqAPI(api: API, client: httpx.Client) -> httpx.Response:
-    if isinstance(api.data, dict):
-        resp = client.request(method=api.method, json=api.data,
-                              headers=api.header, url=api.url)
-    else:
-        resp = client.request(method=api.method, data=api.data,
-                              headers=api.header, url=api.url)
-    return resp
-
-
-def req(api: Union[API, str], phone: tuple):
-    """请求接口方法"""
-    # 多手机号支持
-    if isinstance(phone, tuple):
-        phone_lst = [_ for _ in phone]
-    else:
-        phone_lst = [phone]
-
-    with httpx.Client(headers=default_header, verify=False) as client:
-        for ph in phone_lst:
-            try:
-                if isinstance(api, API):
-                    api = api.handle_API(ph)
-                    resp = reqAPI(api, client)
-                    logger.info(f"{api.desc}-{resp.text[:30]}")
-                else:
-                    api = api.replace("[phone]", ph)
-                    resp = client.get(url=api, headers=default_header)
-                    logger.info(f"GETAPI接口-{resp.text[:30]}")
-            except httpx.HTTPError as why:
-                logger.error(f"请求失败{why}")
-
 
 @click.command()
 @click.option("--thread", "-t", help="线程数(默认64)", default=64)
@@ -126,16 +87,16 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
                 i += 1
                 logger.success(f"第{i}波轰炸开始！")
                 for api in _api:
-                    pool.submit(req, api, phone)
+                    pool.submit(reqFunc, api, phone)
                 for api_get in _api_get:
-                    pool.submit(req, api_get, phone)
+                    pool.submit(reqFunc, api_get, phone)
                 logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
                 time.sleep(interval)
         else:
             for api in _api:
-                pool.submit(req, api, phone)
+                pool.submit(reqFunc, api, phone)
             for api_get in _api_get:
-                pool.submit(req, api_get, phone)
+                pool.submit(reqFunc, api_get, phone)
 
 
 @click.command()
@@ -147,9 +108,11 @@ def update():
     try:
         with httpx.Client(verify=False, timeout=10) as client:
             # print(API_json_url)
-            GETAPI_json = client.get(GETAPI_json_url, headers=default_header).content.decode(encoding="utf8")
-            api_json = client.get(API_json_url, headers=default_header).content.decode(encoding="utf8")
-            
+            GETAPI_json = client.get(
+                GETAPI_json_url, headers=default_header).content.decode(encoding="utf8")
+            api_json = client.get(
+                API_json_url, headers=default_header).content.decode(encoding="utf8")
+
     except Exception as why:
         logger.error(f"拉取更新失败:{why}请关闭所有代理软件多尝试几次!")
     else:
