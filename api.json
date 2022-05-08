@@ -676,5 +676,56 @@
             "v": "4.9.2",
             "validType": "3"
         }
+    },
+    {
+        "desc": "快应用美抽",
+        "url": "http://users.seeyouyima.com/xiaomi/connect/?action=getCaptcha&v=2.1.0&app_id=11&platform=7&myclient=1172100000&account=[phone]",
+        "method": "POST",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "小叶子app",
+        "url": "https://dss.xiaoyezi.com/student_app/auth/validate_code?mobile=[phone]&country_code=86",
+        "method": "GET",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "牙e在线",
+        "url": "https://yae920.com/login/sendSMS?mobile=[phone]&smsType=02&timestamp=[timestamp]",
+        "method": "POST",
+        "header": "",
+        "data": "mobile=[phone]&smsType=02&timestamp=[timestamp]"
+    },
+    {
+        "desc": "某数图表web(存疑)",
+        "url": "https://dycharts.com/vis/auth/send_signin_sms_code",
+        "method": "POST",
+        "header": "",
+        "data": {
+            "phoneNo": "13809213237"
+        }
+    },
+    {
+        "desc": "17k小说网app",
+        "url": "http://api.17k.com/user/mobile/[phone]/message?smsType=2&deviceFlag=64e538d8f0cff7bb107dd8c1fba0f5a2&cpsOpid=17Kxiaomi&_filterData=1&device_id=e0c0b30933e42492&channel=0&_versions=1280&merchant=17Kxiaomi&ua=Mozilla%2F5.0%20%28Linux%3B%20Android%2011%3B%20M2102J2SC%20Build%2FRKQ1.200826.002%3B%20wv%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Version%2F4.0%20Chrome%2F100.0.4896.127%20Mobile%20Safari%2F537.36&platform=2&manufacturer=Xiaomi&clientType=1&width=1080&appKey=4037465544&model=M2102J2SC&cpsSource=0&brand=Xiaomi&youthModel=0&height=2206",
+        "method": "GET",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "汇看点快应用",
+        "url": "https://grzx.brily.cn/api/utils/sendSmsCode?phone=[phone]&type=USER_REG",
+        "method": "POST",
+        "header": "",
+        "data": ""
+    },
+    {
+        "desc": "核桃编程app",
+        "url": "https://api.hetao101.com/login/v2/account/oauth/verifyCode?phoneNumber=[phone]",
+        "method": "GET",
+        "header": "",
+        "data": ""
     }
 ]
