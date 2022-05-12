@@ -1,15 +1,17 @@
 # encoding=utf8
 # 读写sqlite数据库
 from pathlib import Path
+from utils.log import logger
 import sqlite3
+
 
 class Sql(object):
     """处理SQL数据"""
 
-    def __init__(self) -> None:
+    def __init__(self, db_path: Path) -> None:
         '''初始化数据库'''
         # 数据库路径
-        db_path = Path.cwd().joinpath("api.db")
+        # db_path = Path.cwd().joinpath("api.db")
         # 连接数据库,不检查是否在同一个线程.
         self.client = sqlite3.connect(
             db_path, timeout=6, check_same_thread=False)
@@ -36,9 +38,10 @@ CREATE TABLE IF NOT EXISTS API200 (
         try:
             self.cursor.execute(sql, (url,))
             self.client.commit()
+            logger.success("插入成功!")
             return True
         except sqlite3.IntegrityError:
-            # print(f"{url} 数据重复!")
+            logger.error(f"数据重复!")
             return False
 
     def select(self) -> list:
@@ -54,10 +57,9 @@ CREATE TABLE IF NOT EXISTS API200 (
                 urls.append(url[0])
             return urls
         except Exception as e:
-            print('读取出现错误!', e)
+            logger.error('读取出现错误!', e)
 
     def __del__(self) -> None:
         '''对象被删除时执行的函数'''
-        print(f"共改变{self.client.total_changes}条数据!,正在关闭数据库连接......")
+        logger.info(f"共改变{self.client.total_changes}条数据!,正在关闭数据库连接......")
         self.client.close()
-
