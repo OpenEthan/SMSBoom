@@ -7,6 +7,7 @@ from utils import default_header
 from utils.models import API
 from utils.log import logger
 
+
 def reqAPI(api: API, client: httpx.Client) -> httpx.Response:
     if isinstance(api.data, dict):
         resp = client.request(method=api.method, json=api.data,
@@ -17,7 +18,7 @@ def reqAPI(api: API, client: httpx.Client) -> httpx.Response:
     return resp
 
 
-def reqFunc(api: Union[API, str], phone: tuple):
+def reqFunc(api: Union[API, str], phone: Union[tuple, str]):
     """请求接口方法"""
     # 多手机号支持
     if isinstance(phone, tuple):
@@ -36,5 +37,7 @@ def reqFunc(api: Union[API, str], phone: tuple):
                     api = api.replace("[phone]", ph)
                     resp = client.get(url=api, headers=default_header)
                     logger.info(f"GETAPI接口-{resp.text[:30]}")
+                return True
             except httpx.HTTPError as why:
                 logger.error(f"请求失败{why}")
+                return False
