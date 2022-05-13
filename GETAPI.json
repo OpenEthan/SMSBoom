@@ -1,5 +1,5 @@
 [
-    "http://101.132.126.166:8080/message/sendVerifyCode?callback=successCallback&mobilePhone=&t=1589625247333action_type=regist&mobile=[phone]",
+    "http://101.132.126.166:8080/message/sendVerifyCode?callback=successCallback&mobilePhone=[phone]&t=1589625247333action_type=regist&mobile=[phone]",
     "http://12345.panzhihua.gov.cn/sms/getSMSCode?mobile=[phone]",
     "http://19.offcn.com/send_message/seccode/?0.8413693207408235&msgpic=user=[phone]",
     "http://211.156.201.12:8088/youzheng//ems/security?phone=[phone]",
