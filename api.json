@@ -727,5 +727,12 @@
         "method": "GET",
         "header": "",
         "data": ""
+    },
+    {
+        "desc": "永城至敏",
+        "url": "http://101.132.126.166:8080/message/sendVerifyCode?callback=successCallback&mobilePhone=[phone]&t=1589625247333action_type=regist&mobile=[phone]",
+        "method": "GET",
+        "header": "",
+        "data": ""
     }
 ]
