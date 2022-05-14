@@ -6,6 +6,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Union
+import asyncio
 
 import click
 import httpx
@@ -13,7 +14,7 @@ import httpx
 from utils import default_header
 from utils.log import logger
 from utils.models import API
-from utils.req import reqFunc
+from utils.req import reqFunc, runAsync
 
 # current directory
 path = pathlib.Path(__file__).parent
@@ -42,6 +43,7 @@ def load_json() -> List[API]:
             logger.error(f"Json file syntax error:{why}")
             # return None
             raise ValueError
+
 
 def load_getapi() -> list:
     """load GETAPI
@@ -99,6 +101,33 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
                 pool.submit(reqFunc, api_get, phone)
 
 
+@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
+@click.command()
+def asyncRun(phone):
+    """以最快的方式请求接口(真异步百万并发)"""
+    _api = load_json()
+    _api_get = load_getapi()
+    apis = _api+_api_get
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(runAsync(apis, phone))
+
+
+@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
+@click.command()
+def oneRun(phone):
+    """单线程(测试使用)"""
+    _api = load_json()
+    _api_get = load_getapi()
+    apis = _api+_api_get
+
+    for api in apis:
+        try:
+            reqFunc(api, phone)
+        except:
+            pass
+
+
 @click.command()
 def update():
     """从 github 获取最新接口"""
@@ -130,6 +159,8 @@ def cli():
 
 cli.add_command(run)
 cli.add_command(update)
+cli.add_command(asyncRun)
+cli.add_command(oneRun)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 # encoding=utf8
 import httpx
-# import requests
 from .model import API, default_header
 
 
@@ -24,16 +23,7 @@ def test_resq(api: API, phone) -> httpx.Response:
             print('json')
             resp = client.request(
                 method=api.method, headers=api.header, url=api.url, json=api.data)
-    
-    # 验证不是 httpx 的问题...
-    # if not isinstance(api.data, dict):
-    #     print("data")
-    #     resp = requests.request(method=api.method, headers=api.header,
-    #                             url=api.url, data=api.data)
-    # else:
-    #     print('json')
-    #     resp = requests.request(
-    #         method=api.method, headers=api.header, url=api.url, json=api.data)
+
     return resp
 
 
