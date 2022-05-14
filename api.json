@@ -734,5 +734,12 @@
         "method": "GET",
         "header": "",
         "data": ""
+    },
+    {
+        "desc": "金中网",
+        "url": "https://jrh.financeun.com/Login/sendMessageCode3.html?mobile=[phone]&mbid=197858&check=3",
+        "method": "GET",
+        "header": "",
+        "data": ""
     }
 ]
