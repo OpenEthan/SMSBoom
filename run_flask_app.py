@@ -6,7 +6,7 @@ from pathlib import Path
 import json
 from flask_app import db, app
 from flask_app.model import Apis
-from utils import API
+from utils.models import API
 
 json_path = Path(app.root_path).parent.joinpath(
     "api.json")
