@@ -14,6 +14,7 @@ flask = "*"
 flask-admin = "*"
 flask-babelex = "*"
 flask-sqlalchemy = "*"
+celery = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
