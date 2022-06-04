@@ -1,3 +1,9 @@
+### thisPR.Feature
+
+1. 通过代理调用短信接口.
+2. 随机的User-Agent.
+3. 去除循环模式, 新增"设置执行次数"模式, 参数"--frequency | -t", 用于指定要循环执行的次数.
+
 ![logo](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/smsboom-logo.png)
 
 ![test](img/test2.gif)
