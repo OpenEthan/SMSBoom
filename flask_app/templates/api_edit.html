@@ -1,0 +1,16 @@
+{% extends 'admin/model/edit.html' %}
+
+{% block body %}
+<h2>短信接口添加</h2>
+<p>替换字符: 手机号<code>[phone]</code> 时间戳<code>[timestamp]</code></p>
+{{ super() }}
+<input type="text" value="{{ current_app.config.get("TEST_PHONE") }}" id="phone">
+<input type="button" class="btn btn-primary" value="测试接口" id="test">
+{% endblock %}
+
+
+{% block tail %}
+<div id="error" class="alert alert-danger" style="display: none;">请求错误!</div>
+<div id="suc" class="alert alert-success" style="display: none;">请求成功!</div>
+<script src="/static/test.js" type="text/javascript"></script>
+{% endblock %}

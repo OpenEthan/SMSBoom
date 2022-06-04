@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<!-- 屏蔽referrer -->
+	<meta name="referrer" content="never">
+	<title>短信轰炸接口调试工具.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<!-- 引入 layui.css -->
+	<link rel="stylesheet" href="https://unpkg.com/layui@2.6.8/dist/css/layui.css">
+	<!-- 引入 layui.js -->
+	<script src="https://unpkg.com/layui@2.6.8/dist/layui.js"></script>
+</head>
+
+<body>
+	<div class="container" id="app">
+
+		<h3>
+			短信接口添加工具
+			<small class="text-muted">By 落落</small>
+		</h3>
+
+		<div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">phone</span>
+				</div>
+				<input v-model="phone" type="text" class="form-control" placeholder="测试手机号">
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">decs</span>
+				</div>
+				<input v-model="desc" type="text" class="form-control" placeholder="接口描述">
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">URL</span>
+				</div>
+				<input v-model="url" type="text" class="form-control" placeholder="链接">
+			</div>
+
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Data</span>
+				</div>
+				<textarea v-model="data" class="form-control" aria-label="With textarea" placeholder="发送的数据"></textarea>
+			</div>
+
+			<br />
+
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">header</span>
+				</div>
+				<textarea v-model="header" class="form-control" aria-label="With textarea"
+					placeholder="自定义header(可选)"></textarea>
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">请求方法</span>
+				</div>
+				<input v-model="method" type="text" class="form-control" placeholder="GET or POST">
+			</div>
+		</div>
+
+		<div v-if="resp">
+			<div v-if="resp.status === '1'" class="alert alert-danger" role="alert">
+				<b>接口报错!Msg:</b> {{ resp.msg }}
+			</div>
+
+			<div v-else>
+				<div class="alert alert-success" role="alert">
+					<b>测试成功!Msg:</b> {{ resp.msg }}
+				</div>
+				<div class="alert alert-success" role="alert">
+					<b>接口响应:</b> {{ resp.data }}
+				</div>
+			</div>
+
+		</div>
+
+		<div v-else-if="error === 1">
+			<div class="alert alert-danger" role="alert">
+				<b>请求失败,请检查接口 Why:</b> {{ resp }}
+				接口地址: <code>{{ api }}</code>
+			</div>
+		</div>
+
+		<button v-on:click="call_api('/testapi/');" type="button" class="btn btn-primary">测试接口</button>
+		<button v-on:click="call_api('/submitapi/');" type="button" class="btn btn-primary">提交接口</button>
+		<button v-on:click="call_api('/backapi/');" type="button" class="btn btn-primary">备份接口</button>
+	</div>
+	</div>
+</body>
+<script>
+	// server 地址 结尾不要加 /
+	var api = "";
+	var app = new Vue({
+		el: '#app',
+		data: {
+			api: api,
+			data: '',
+			url: '',
+			header: '',
+			phone: '',
+			method: '',
+			resp: '',
+			error: '',
+			desc:''
+		},
+		methods: {
+			gen_json: function () {
+				let datas = {
+					"url": this.url,
+					"data": this.data,
+					"header": this.header,
+					"phone": this.phone,
+					"method": this.method,
+					"desc": this.desc,
+				};
+				console.log(datas);
+				return datas;
+			},
+			call_api: function (url) {
+				let data = this.gen_json()
+				if (data) { data = JSON.stringify(data) };
+				layer.msg('请求接口中', {
+					icon: 16
+					, shade: 0.01
+				});
+				axios({
+					method: 'post',
+					url: url,
+					headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+					data: data
+				})
+					.then((response) => {
+						this.resp = response.data;
+						layer.closeAll('loading');
+						console.log("请求发送成功!");
+						console.log(this.resp.msg);
+					})
+					.catch((why) => {
+						this.error = true;
+						this.resp = why;
+						console.log(why);
+						layer.msg("请求失败!");
+						layer.closeAll('loading');
+					});
+			}
+		},
+	});
+</script>
+
+</html>
