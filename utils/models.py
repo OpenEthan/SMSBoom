@@ -4,14 +4,19 @@ from pydantic import BaseModel
 from typing import Union, Optional
 from datetime import datetime
 import json
-from utils import default_header
+
+from utils import default_header_user_agent
+
+
 
 class API(BaseModel):
     """处理自定义 API 数据"""
     desc: str = "Default"
     url: str
     method: str = "GET"
-    header: Optional[Union[str, dict]] = default_header
+
+    header: Optional[Union[str, dict]] = default_header_user_agent()
+
     data: Optional[Union[str, dict]]
 
     def replace_data(self, content: Union[str, dict], phone: str) -> str:
@@ -19,7 +24,7 @@ class API(BaseModel):
         if phone:
             content = str(content).replace("[phone]", phone).replace(
                 "[timestamp]", self.timestamp_new()).replace("'", '"')
-        
+
         # 尝试 json 化
         try:
             return json.loads(content.replace("'", '"'))
@@ -29,6 +34,7 @@ class API(BaseModel):
     def timestamp_new(self) -> str:
         """返回整数字符串时间戳"""
         return str(int(datetime.now().timestamp()))
+
 
     def handle_API(self, phone: str=None):
         """ 传入手机号处理 API

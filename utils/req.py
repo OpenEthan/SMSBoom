@@ -5,7 +5,9 @@ from httpx import Limits
 from typing import Union, List
 import asyncio
 
-from utils import default_header
+
+from utils import default_header_user_agent
+
 from utils.models import API
 from utils.log import logger
 
@@ -20,7 +22,9 @@ def reqAPI(api: API, client: Union[httpx.Client, httpx.AsyncClient]) -> httpx.Re
     return resp
 
 
-def reqFunc(api: Union[API, str], phone: Union[tuple, str]) -> bool:
+
+def reqFunc(api: Union[API, str], phone: Union[tuple, str], proxy: dict) -> bool:
+
     """请求接口方法"""
     # 多手机号支持
     if isinstance(phone, tuple):
@@ -28,12 +32,15 @@ def reqFunc(api: Union[API, str], phone: Union[tuple, str]) -> bool:
     else:
         phone_lst = [phone]
 
-    with httpx.Client(headers=default_header, verify=False) as client:
+
+    with httpx.Client(headers=default_header_user_agent(), verify=False, proxies=proxy) as client:
+
         for ph in phone_lst:
             try:
                 if isinstance(api, API):
                     api = api.handle_API(ph)
                     resp = reqAPI(api, client)
+
                     logger.info(f"{api.desc}-{resp.text[:30]}")
                 else:
                     api = api.replace("[phone]", ph).replace(" ", "").replace('\n', '').replace('\r', '')
@@ -42,13 +49,16 @@ def reqFunc(api: Union[API, str], phone: Union[tuple, str]) -> bool:
                 return True
             except httpx.HTTPError as why:
                 logger.error(f"请求失败{why}")
+
                 return False
 
 
 async def asyncReqs(src: Union[API, str], phone: Union[tuple, str], semaphore):
     """异步请求方法
-    :param: 
-    :return: 
+
+    :param:
+    :return:
+
     """
     # 多手机号支持
     if isinstance(phone, tuple):
@@ -94,8 +104,10 @@ def callback(result):
         logger.info(f"请求结果:{log.text[:30]}")
 
 
+
 async def runAsync(apis: List[Union[API,str]], phone: Union[tuple, str]):
     
+
     tasks = []
 
     for api in apis:
