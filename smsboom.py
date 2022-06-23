@@ -11,7 +11,9 @@ import asyncio
 import click
 import httpx
 
+
 from utils import default_header_user_agent
+
 from utils.log import logger
 from utils.models import API
 from utils.req import reqFunc, runAsync
@@ -109,11 +111,18 @@ def run(thread: int, phone: Union[str, tuple], frequency: int):
                 # for api_get in _api_get:
                 #     _process = pool.submit(reqFunc, api_get, phone, proxy)
                 for api in _api:
-                    _process = pool.submit(reqFunc, api, phone, proxy)
-                # 在这里设置List后使用for _p in list, _p.result()会报错, 故限定最后一个
-                _process.result()
-                logger.success(f"第{i}波轰炸 - 代理：" + proxy['all://'] + " 轰炸完成，准备进行下一步操作...")
-            logger.success(f"第{i}波轰炸结束！")
+
+                    pool.submit(reqFunc, api, phone)
+                for api_get in _api_get:
+                    pool.submit(reqFunc, api_get, phone)
+                logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
+                time.sleep(interval)
+        else:
+            for api in _api:
+                pool.submit(reqFunc, api, phone)
+            for api_get in _api_get:
+                pool.submit(reqFunc, api_get, phone)
+
 
 
 @click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
@@ -122,7 +131,9 @@ def asyncRun(phone):
     """以最快的方式请求接口(真异步百万并发)"""
     _api = load_json()
     _api_get = load_getapi()
+
     apis = _api + _api_get
+
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(runAsync(apis, phone))
@@ -134,7 +145,9 @@ def oneRun(phone):
     """单线程(测试使用)"""
     _api = load_json()
     _api_get = load_getapi()
+
     apis = _api + _api_get
+
 
     for api in apis:
         try:
@@ -176,6 +189,7 @@ cli.add_command(run)
 cli.add_command(update)
 cli.add_command(asyncRun)
 cli.add_command(oneRun)
+
 
 if __name__ == "__main__":
     cli()
