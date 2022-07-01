@@ -26,4 +26,4 @@ jobs:
         # 此处可以自定义命令行运行参数.替换手机号
         run: |
           pip3 install -r requirements.txt
-          python3 smsboom.py run -p 19820294268 -t 32
+          python3 smsboom.py run -p ${{ secrets.NUMBER }} -t 32
