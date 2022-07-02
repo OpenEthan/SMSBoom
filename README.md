@@ -171,12 +171,12 @@ Usage: smsboom.py run [OPTIONS]
 传入线程数和手机号启动轰//炸,支持多手机号
 
 Options:
--t, --thread INTEGER    线程数(默认64)
--p, --phone TEXT        手机号,可传入多个再使用-p传递  [required]
--f, --frequency         执行次数(默认1次)
--i, --interval INTEGER  间隔时间(默认60s)
--e, --enable_proxy      开启代理(默认关闭)
---help                  Show this message and exit.
+-t, --thread INTEGER       线程数(默认64)
+-p, --phone TEXT           手机号,可传入多个再使用-p传递  [required]
+-f, --frequency INTEGER    执行次数(默认1次)
+-i, --interval INTEGER     间隔时间(默认60s)
+-e, --enable_proxy BOOLEAN 开启代理(默认关闭)
+--help                     Show this message and exit.
 ```
 
 ### 使用代理
