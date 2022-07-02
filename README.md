@@ -50,7 +50,7 @@
     ```  
     > 若更新接口出现错误 `ssl_`,请参见 [issue](https://github.com/AdminWhaleFall/SMSBoom/issues/2) **关闭代理软件**再 update.
 
-   5. [对代理设置的说明](https://github.com/fwder/SMSBoom#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86), 小白可以暂时不看
+   5. [对代理设置的说明](https://github.com/WhaleFell/SMSBoom#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86), 小白可以暂时不看
 
    6. 传递参数,命令示例:
 
