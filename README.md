@@ -52,7 +52,8 @@
 
    7. 传递参数,命令示例:
 
-    启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
+   启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
+   
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
    ```
@@ -68,11 +69,17 @@
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30
    ```
-
-   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒
+   
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30 -e
+   ```
+
+   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒, 开启代理列表进行轰炸
+
+   ```shell
+   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30 -e
    ```
 
 
@@ -170,24 +177,45 @@ Options:
 --help                  Show this message and exit.
 ```
 
-### 命令示例  
+### 使用代理
+
+本项目不能通过API自动获取代理, 你可以从下面的免费代理网站中手动获取代理, 或是选择使用自己的代理, 或是不使用代理.
+
+> [https://proxyscrape.com/free-proxy-list](https://proxyscrape.com/free-proxy-list)
+> [https://openproxy.space/list](https://openproxy.space/list)
+
+将代理添加到 `http_proxy.txt` `socks4_proxy.txt` `socks5_proxy.txt` 三个文件中, 命令参数添加 `-e` 执行即可.
+
+### 命令示例
 
 启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
 
 ```shell
-python smsboom.py run -t 64 -p 198xxxxxxxxx
+python smsboom.py run -t 64 -p 198xxxxxxxx
 ```
 
-启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次
 
 ```shell
-python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60
+```
+   
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒
+
+```shell
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60 -i 30
 ```
 
-启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
 ```shell
-python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60 -i 30 -e
+```
+
+启动64个线程,轰//炸多个人的手机号(198xxxxxxxx,199xxxxxxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒, 开启代理列表进行轰炸
+
+```shell
+python smsboom.py run -t 64 -p 198xxxxxxxx -p 199xxxxxxxx -f 60 -i 30 -e
 ```
 
 ## Development
