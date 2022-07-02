@@ -44,13 +44,15 @@
    3. 确认 cmd 路径是 EXE 所在路径后,cmd 输入:`smsboom_pyinstall.exe`,若出现命令提示,则说明脚本已正常运行. 
    ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/cmd2.png)
 
-   5. 使用前必须更新一遍最新接口
+   4. 使用前必须更新一遍最新接口
     ```shell
     smsboom_pyinstall.exe update
     ```  
     > 若更新接口出现错误 `ssl_`,请参见 [issue](https://github.com/AdminWhaleFall/SMSBoom/issues/2) **关闭代理软件**再 update.
 
-   7. 传递参数,命令示例:
+   5. [对代理设置的说明](https://github.com/fwder/SMSBoom#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86), 小白可以暂时不看
+
+   6. 传递参数,命令示例:
 
    启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
    
