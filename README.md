@@ -1,9 +1,3 @@
-# thisPR.Feature
-
-1. 通过代理调用短信接口.
-2. 随机的User-Agent.
-3. 去除循环模式, 新增"设置执行次数"模式, 参数"--frequency | -t", 用于指定要循环执行的次数.
-
 ![logo](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/smsboom-logo.png)
 
 ![test](img/test2.gif)
@@ -22,6 +16,9 @@
 4. 通过 Flask 提供网页测试/添加接口.  
 5. 友好的命令行参数支持.  
 6. 采用方便的 pipenv 包管理.  
+7. 通过代理调用短信接口, 支持http, socks4, socks5代理.
+8. 使用随机的User-Agent.
+9. 可指定轰炸次数, 轰炸间隔时间.
 
 ## Quick Start
 
@@ -60,16 +57,22 @@
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
    ```
 
-   启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒  
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60
+   ```
+   
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒
+
+   ```shell
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30
    ```
 
-   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。  
+   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30
    ```
 
 
@@ -161,8 +164,9 @@ Usage: smsboom.py run [OPTIONS]
 Options:
 -t, --thread INTEGER    线程数(默认64)
 -p, --phone TEXT        手机号,可传入多个再使用-p传递  [required]
--s, --super             循环模式
--i, --interval INTEGER  循环间隔时间(默认60s)
+-f, --frequency         执行次数(默认1次)
+-i, --interval INTEGER  间隔时间(默认60s)
+-e, --enable_proxy      开启代理(默认关闭)
 --help                  Show this message and exit.
 ```
 

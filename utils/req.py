@@ -23,7 +23,32 @@ def reqAPI(api: API, client: Union[httpx.Client, httpx.AsyncClient]) -> httpx.Re
 
 
 
-def reqFunc(api: Union[API, str], phone: Union[tuple, str], proxy: dict) -> bool:
+def reqFuncByProxy(api: Union[API, str], phone: Union[tuple, str], proxy: dict) -> bool:
+
+    """通过代理请求接口方法"""
+    # 多手机号支持
+    if isinstance(phone, tuple):
+        phone_lst = [_ for _ in phone]
+    else:
+        phone_lst = [phone]
+    with httpx.Client(headers=default_header_user_agent(), verify=False, proxies=proxy) as client:
+        for ph in phone_lst:
+            try:
+                if isinstance(api, API):
+                    api = api.handle_API(ph)
+                    resp = reqAPI(api, client)
+                    logger.info(f"{api.desc}-{resp.text[:30]}")
+                else:
+                    api = api.replace("[phone]", ph).replace(" ", "").replace('\n', '').replace('\r', '')
+                    resp = client.get(url=api, headers=default_header_user_agent())
+                    logger.info(f"GETAPI接口-{resp.text[:30]}")
+                return True
+            except httpx.HTTPError as why:
+                logger.error(f"请求失败{why}")
+                return False
+
+
+def reqFunc(api: Union[API, str], phone: Union[tuple, str]) -> bool:
 
     """请求接口方法"""
     # 多手机号支持
@@ -31,25 +56,20 @@ def reqFunc(api: Union[API, str], phone: Union[tuple, str], proxy: dict) -> bool
         phone_lst = [_ for _ in phone]
     else:
         phone_lst = [phone]
-
-
-    with httpx.Client(headers=default_header_user_agent(), verify=False, proxies=proxy) as client:
-
+    with httpx.Client(headers=default_header_user_agent(), verify=False) as client:
         for ph in phone_lst:
             try:
                 if isinstance(api, API):
                     api = api.handle_API(ph)
                     resp = reqAPI(api, client)
-
                     logger.info(f"{api.desc}-{resp.text[:30]}")
                 else:
                     api = api.replace("[phone]", ph).replace(" ", "").replace('\n', '').replace('\r', '')
-                    resp = client.get(url=api, headers=default_header)
+                    resp = client.get(url=api, headers=default_header_user_agent())
                     logger.info(f"GETAPI接口-{resp.text[:30]}")
                 return True
             except httpx.HTTPError as why:
                 logger.error(f"请求失败{why}")
-
                 return False
 
 
