@@ -1,15 +1,12 @@
 # encoding=utf8
 # 储存数据库模型
+from utils import default_header_user_agent
 from . import db
 from datetime import datetime
 from . import ModelView
 import json
 from typing import Union, Optional
 from pydantic import BaseModel
-
-default_header = {
-    "User-Agent": "Mozilla/5.0 (Linux; U; Android 10; zh-cn; Mi 10 Build/QKQ1.191117.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.147 Mobile Safari/537.36 XiaoMi/MiuiBrowser/13.5.40"
-}
 
 
 class ApisModelVies(ModelView):
@@ -38,7 +35,7 @@ class API(BaseModel):
     desc: str = "Default"
     url: str
     method: str = "GET"
-    header: Optional[Union[str, dict]] = default_header
+    header: Optional[Union[str, dict]] = default_header_user_agent()
     data: Optional[Union[str, dict]]
 
     def replace_data(self, content: Union[str, dict], phone) -> str:

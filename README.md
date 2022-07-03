@@ -1,9 +1,3 @@
-# thisPR.Feature
-
-1. 通过代理调用短信接口.
-2. 随机的User-Agent.
-3. 去除循环模式, 新增"设置执行次数"模式, 参数"--frequency | -t", 用于指定要循环执行的次数.
-
 ![logo](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/smsboom-logo.png)
 
 ![test](img/test2.gif)
@@ -22,6 +16,9 @@
 4. 通过 Flask 提供网页测试/添加接口.  
 5. 友好的命令行参数支持.  
 6. 采用方便的 pipenv 包管理.  
+7. 通过代理调用短信接口, 支持http, socks4, socks5代理.
+8. 使用随机的User-Agent.
+9. 可指定轰炸次数, 轰炸间隔时间.
 
 ## Quick Start
 
@@ -47,29 +44,44 @@
    3. 确认 cmd 路径是 EXE 所在路径后,cmd 输入:`smsboom_pyinstall.exe`,若出现命令提示,则说明脚本已正常运行. 
    ![](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/cmd2.png)
 
-   5. 使用前必须更新一遍最新接口
+   4. 使用前必须更新一遍最新接口
     ```shell
     smsboom_pyinstall.exe update
     ```  
     > 若更新接口出现错误 `ssl_`,请参见 [issue](https://github.com/AdminWhaleFall/SMSBoom/issues/2) **关闭代理软件**再 update.
 
-   7. 传递参数,命令示例:
+   5. [对代理设置的说明](https://github.com/WhaleFell/SMSBoom#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86), 小白可以暂时不看
 
-    启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
+   6. 传递参数,命令示例:
+
+   启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
+   
    ```shell
    smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
    ```
 
-   启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒  
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60
+   ```
+   
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒
+
+   ```shell
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30
+   ```
+   
+   启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒, 开启代理列表进行轰炸
+
+   ```shell
+   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30 -e
    ```
 
-   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。  
+   启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30 -e
    ```
 
 
@@ -159,31 +171,54 @@ Usage: smsboom.py run [OPTIONS]
 传入线程数和手机号启动轰//炸,支持多手机号
 
 Options:
--t, --thread INTEGER    线程数(默认64)
--p, --phone TEXT        手机号,可传入多个再使用-p传递  [required]
--s, --super             循环模式
--i, --interval INTEGER  循环间隔时间(默认60s)
---help                  Show this message and exit.
+-t, --thread INTEGER       线程数(默认64)
+-p, --phone TEXT           手机号,可传入多个再使用-p传递  [required]
+-f, --frequency INTEGER    执行次数(默认1次)
+-i, --interval INTEGER     间隔时间(默认60s)
+-e, --enable_proxy BOOLEAN 开启代理(默认关闭)
+--help                     Show this message and exit.
 ```
 
-### 命令示例  
+### 使用代理
+
+本项目不能通过API自动获取代理, 你可以从下面的免费代理网站中手动获取代理, 或是选择使用自己的代理, 或是不使用代理.
+
+> [https://proxyscrape.com/free-proxy-list](https://proxyscrape.com/free-proxy-list)
+
+> [https://openproxy.space/list](https://openproxy.space/list)
+
+将代理添加到 `http_proxy.txt` `socks4_proxy.txt` `socks5_proxy.txt` 三个文件中, 命令参数添加 `-e` 执行即可.
+
+### 命令示例
 
 启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
 
 ```shell
-python smsboom.py run -t 64 -p 198xxxxxxxxx
+python smsboom.py run -t 64 -p 198xxxxxxxx
 ```
 
-启动64个线程,轰//炸多个人的手机号(19xxxxxxx),启动循环轰//炸，每个循环间隔60秒
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次
 
 ```shell
-python smsboom.py run -t 64 -p 198xxxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60
+```
+   
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒
+
+```shell
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60 -i 30
 ```
 
-启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸,每个循环间隔60秒。
+启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
 ```shell
-python smsboom.py run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -s -i 60
+python smsboom.py run -t 64 -p 198xxxxxxxx -f 60 -i 30 -e
+```
+
+启动64个线程,轰//炸多个人的手机号(198xxxxxxxx,199xxxxxxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒, 开启代理列表进行轰炸
+
+```shell
+python smsboom.py run -t 64 -p 198xxxxxxxx -p 199xxxxxxxx -f 60 -i 30 -e
 ```
 
 ## Development
