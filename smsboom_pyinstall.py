@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 import sys
 import os
-from utils import API, default_header
+from utils import API, default_header_user_agent
 
 # logger config
 logger.remove()
@@ -89,7 +89,7 @@ def req(api: Union[API, str], phone: tuple):
         phone_lst = [_ for _ in phone]
     else:
         phone_lst = [phone]
-    with httpx.Client(headers=default_header, verify=False) as client:
+    with httpx.Client(headers=default_header_user_agent(), verify=False) as client:
         for ph in phone_lst:
             try:
                 if isinstance(api, API):
@@ -98,7 +98,7 @@ def req(api: Union[API, str], phone: tuple):
                     logger.info(f"{api.desc}-{resp.text[:30]}")
                 else:
                     api = api.replace("[phone]", ph)
-                    resp = client.get(url=api, headers=default_header)
+                    resp = client.get(url=api, headers=default_header_user_agent())
                     logger.info(f"GETAPI接口-{resp.text[:30]}")
             except httpx.HTTPError as why:
                 logger.error(f"{why.request.url}请求失败{why}")
@@ -149,8 +149,8 @@ def update(proxy: str):
     try:
         with httpx.Client(verify=False, timeout=10) as client:
             # print(API_json_url)
-            GETAPI_json = client.get(GETAPI_json_url, headers=default_header).content.decode(encoding="utf8")
-            api_json = client.get(API_json_url, headers=default_header).content.decode(encoding="utf8")
+            GETAPI_json = client.get(GETAPI_json_url, headers=default_header_user_agent()).content.decode(encoding="utf8")
+            api_json = client.get(API_json_url, headers=default_header_user_agent()).content.decode(encoding="utf8")
             
     except Exception as why:
         logger.error(f"拉取更新失败:{why}请多尝试几次!")
