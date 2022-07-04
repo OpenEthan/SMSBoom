@@ -114,7 +114,6 @@ def load_getapi() -> list:
 def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, enable_proxy: bool = False):
     """传入线程数和手机号启动轰炸,支持多手机号"""
     logger.info(f"手机号:{phone}, 线程数:{thread}, 执行次数:{frequency}, 间隔时间:{interval}")
-    print(enable_proxy)
     with ThreadPoolExecutor(max_workers=thread) as pool:
         try:
             _api = load_json()
