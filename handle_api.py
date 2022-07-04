@@ -10,7 +10,7 @@ from httpx import Limits
 import asyncio
 
 from utils.sql import Sql
-from utils.req import reqFunc, default_header
+from utils.req import reqFunc, default_header_user_agent
 from utils.log import logger
 
 path = Path(__file__).parent.absolute().joinpath("debug", "api.db")
@@ -51,7 +51,7 @@ async def test2():
     while not q.empty():
         i = q.get()
         _i = i.replace("[phone]", "19820294267")
-        async with httpx.AsyncClient(headers=default_header, timeout=100, limits=Limits(max_connections=1000, max_keepalive_connections=20), verify=False) as client:
+        async with httpx.AsyncClient(headers=default_header_user_agent(), timeout=100, limits=Limits(max_connections=1000, max_keepalive_connections=20), verify=False) as client:
             try:
                 await client.get(_i)
                 # if r.status_code == 200:
