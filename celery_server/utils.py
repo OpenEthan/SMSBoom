@@ -3,7 +3,7 @@
 from smsboom import load_getapi, load_json
 from utils.log import logger
 from utils.models import API
-from utils import default_header
+from utils import default_header_user_agent
 import httpx
 from httpx import Limits
 from typing import Union, List
@@ -37,7 +37,7 @@ async def asyncReqs(src: Union[API, str], phone: Union[tuple, str], semaphore):
         async with httpx.AsyncClient(
             limits=Limits(max_connections=1000,
                           max_keepalive_connections=2000),
-            headers=default_header,
+            headers=default_header_user_agent(),
             verify=False,
             timeout=99999
         ) as c:
