@@ -89,7 +89,7 @@ async def asyncReqs(src: Union[API, str], phone: Union[tuple, str], semaphore):
         async with httpx.AsyncClient(
             limits=Limits(max_connections=1000,
                           max_keepalive_connections=2000),
-            headers=default_header,
+            headers=default_header_user_agent(),
             verify=False,
             timeout=99999
         ) as c:
