@@ -143,6 +143,33 @@ python smsboom.py
 
 若无报错，输出帮助信息，则说明环境已经正确安装。
 
+#### 使用 Docker 运行
+
+**前提条件:** 请确保当前环境已安装 [Docker](https://docs.docker.com/get-docker/).
+
+1. 构建镜像
+
+```shell
+docker build -t whalefell/smsboom .
+```
+
+2. 尝试运行
+
+```shell
+docker run --rm whalefell/smsboom:latest --help
+
+Usage: smsboom.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  asyncrun  以最快的方式请求接口(真异步百万并发)
+  onerun    单线程(测试使用)
+  run       传入线程数和手机号启动轰炸,支持多手机号
+  update    从 github 获取最新接口
+```
+
 #### 运行  
 
 若使用虚拟环境,请先激活. `pipenv shell`
