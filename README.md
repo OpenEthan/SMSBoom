@@ -1,4 +1,4 @@
-![logo](https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/smsboom-logo.png)
+![logo](img/smsboom-logo.png)
 
 ![test](img/test2.gif)
 
@@ -9,7 +9,7 @@
 3. 請大家理智甄別,獨立思考.
 
 
-> 给那些不识字的大陆人看:
+> 简体中文:
 > 1. 原作者 *@whalefell* 为保障自身安全及规避风险,于 `2022/7/6` 将本仓库移交给我.至此,本仓库所有事务与原作者无关.
 > 2. 介于本项目在简中 **GitHub** 圈影响较大,请大家遵守自己所在国家地区的相关法律,**违反法律者与开发者无关**.
 > 3. 请大家理智甄别,独立思考.
