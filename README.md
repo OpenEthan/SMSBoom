@@ -2,11 +2,22 @@
 
 ![test](img/test2.gif)
 
+## 三件事
+
+1. 原作者 *@whalefell* 為保障自身安全及規避風險,於 `2022/7/6` 將本倉庫移交給我.至此,本倉庫所有事務與原作者無關.
+2. 介於本項目在簡中 **GitHub** 圈影響較大,請大家遵守自己所在國家地區的相關法律,**違反法律者與開發者無關**.
+3. 請大家理智甄別,獨立思考.
+
+
+> 给那些不识字的大陆人看:
+> 1. 原作者 *@whalefell* 为保障自身安全及规避风险,于 `2022/7/6` 将本仓库移交给我.至此,本仓库所有事务与原作者无关.
+> 2. 介于本项目在简中 **GitHub** 圈影响较大,请大家遵守自己所在国家地区的相关法律,**违反法律者与开发者无关**.
+> 3. 请大家理智甄别,独立思考.
+
 ## 免责声明
 
-1. 本程序由一位 **高一摆烂美术生** 开发( **15周岁未成年** ),若使用者滥用本项目,本人 **无需承担** 任何法律责任.  
+1. 若使用者滥用本项目,本人 **无需承担** 任何法律责任.  
 2. 本程序仅供娱乐,源码全部开源,**禁止滥用** 和二次 **贩卖盈利**.  **禁止用于商业用途**.
-3. 本人有 **抑郁症病史**,若本人遭受任何形式的网络暴力(包括但不限于发送淫/秽血/腥图片,问候我家人),并出现 **极端行为**,一切都是 **本人的错** 和大家无关.
 
 ## Feature
 
@@ -296,25 +307,12 @@ Options:
 ## 赞助
 [爱发电🔗](https://afdian.net/@smsboom)  
 
-
-<!-- **微/信 && 支/付宝🔗**  
-<center class="half">
-<img src="https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/wx_pay.jpg" width=40%/>
-<img src="https://cdn.jsdelivr.net/gh/AdminWhaleFall/SMSBoom@master/img/aliyun_pay.jpg" width=40%/>
-</center> -->
-
 > 赞助的金额将用于我每月治疗 **抑/郁症** 的支出.谢谢大家的支持和鼓励! **比心ing**
 
-<center class="half">
-根据中国相关法律法规,该图片不予展示.
-<img src="img/mypic.png" width=70%/>
-</center>
-
-> ~~丑陋的自拍 )逃~~
 
 ## Star ♥ 趋势图
 
-<img src="https://starchart.cc/adminwhalefall/smsboom.svg">
+<img src="https://starchart.cc/OpenEthan/smsboom.svg">
 
 ## ✨讨论
 
@@ -323,7 +321,7 @@ Options:
 ### 企鹅🐧群
 > 企鹅群不允许讨论相关敏感信息!违者上飞机票✈
 
-![企鹅群 QR](https://cdn.jsdelivr.net/gh/AdminWhaleFall/Pic@master/img/20220409151539.jpg)
+2022/7/6 停止运作.
 
 ### Telegram Channel (TG群组)
 > 涉及敏/感信息,政/治,民/主运动话题请到 **TG群聊**
