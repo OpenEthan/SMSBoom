@@ -55,7 +55,8 @@ def load_proxies() -> list:
     except:
         logger.error("proxies Failed to load")
         return []
-    logger.success(f"proxies Loading completed number of interfaces:{len(proxy_data)}")
+    logger.success(
+        f"proxies Loading completed number of interfaces:{len(proxy_data)}")
     return proxy_data
 
 
@@ -76,7 +77,8 @@ def load_json() -> List[API]:
                 API(**data)
                 for data in datas
             ]
-            logger.success(f"api.json Loading completed Number of interfaces:{len(APIs)}")
+            logger.success(
+                f"api.json Loading completed Number of interfaces:{len(APIs)}")
             return APIs
         except Exception as why:
             logger.error(f"Json file syntax error:{why}")
@@ -113,14 +115,16 @@ def load_getapi() -> list:
 @click.option('--enable_proxy', "-e", is_flag=True, help="Enable proxy(Default Off)", type=bool)
 def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, enable_proxy: bool = False):
     """Incoming the number of threads and mobile phone number to start bombing,Support multiple phone numbers"""
-    logger.info(f"Phone number:{phone}, Threads:{thread}, number of executions:{frequency}, Intervals:{interval}")
+    logger.info(
+        f"Phone number:{phone}, Threads:{thread}, number of executions:{frequency}, Intervals:{interval}")
     with ThreadPoolExecutor(max_workers=thread) as pool:
         try:
             _api = load_json()
             _api_get = load_getapi()
             _proxies = load_proxies()
         except ValueError:
-            logger.error("Error reading interface!Redownloading interface data!....")
+            logger.error(
+                "Error reading interface!Redownloading interface data!....")
             update()
             sys.exit(1)
         for i in range(1, frequency + 1):
@@ -130,9 +134,11 @@ def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, en
                                proxy['all://'] + " 进行轰炸...") if enable_proxy else logger.success(f"第{i}波开始轰炸...")
                 # 不可用的代理或API过多可能会影响轰炸效果
                 for api in _api:
-                    pool.submit(reqFuncByProxy, api, phone, proxy) if enable_proxy else pool.submit(reqFunc, api, phone)
+                    pool.submit(reqFuncByProxy, api, phone, proxy) if enable_proxy else pool.submit(
+                        reqFunc, api, phone)
                 for api_get in _api_get:
-                    pool.submit(reqFuncByProxy, api_get, phone, proxy) if enable_proxy else pool.submit(reqFunc, api_get, phone)
+                    pool.submit(reqFuncByProxy, api_get, phone, proxy) if enable_proxy else pool.submit(
+                        reqFunc, api_get, phone)
                 logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
                 time.sleep(interval)
 
@@ -169,8 +175,8 @@ def oneRun(phone):
 @click.command()
 def update():
     """Get the latest interface from github"""
-    GETAPI_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/GETAPI.json"
-    API_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/api.json"
+    GETAPI_json_url = f"https://hk1.monika.love/OpenEthan/SMSBoom/master/GETAPI.json"
+    API_json_url = f"https://hk1.monika.love/OpenEthan/SMSBoom/master/api.json"
     logger.info(f"Pulling the latest interface from GitHub!")
     try:
         with httpx.Client(verify=False, timeout=10) as client:
@@ -181,7 +187,8 @@ def update():
                 API_json_url, headers=default_header_user_agent()).content.decode(encoding="utf8")
 
     except Exception as why:
-        logger.error(f"Pull update failed:{why}Please close all proxy software and try several times!")
+        logger.error(
+            f"Pull update failed:{why}Please close all proxy software and try several times!")
     else:
         with open(pathlib.Path(path, "GETAPI.json").absolute(), mode="w", encoding="utf8") as a:
             a.write(GETAPI_json)
