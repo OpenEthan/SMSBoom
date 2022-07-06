@@ -106,8 +106,8 @@ def load_getapi() -> list:
 
 
 @click.command()
-@click.option("--thread", "-t", help="线程数(默认64)", default=64)
-@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
+@click.option("--thread","--t","-t", help="线程数(默认64)", default=64)
+@click.option("--phone", "-p","-P","--P","--p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
 @click.option('--frequency', "-f", default=1, help="执行次数(默认1次)", type=int)
 @click.option('--interval', "-i", default=60, help="间隔时间(默认60s)", type=int)
 @click.option('--enable_proxy', "-e", is_flag=True, help="开启代理(默认关闭)", type=bool)
