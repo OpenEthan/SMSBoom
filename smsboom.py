@@ -28,7 +28,7 @@ def load_proxies() -> list:
     :return: proxies list
     """
     proxy_all = []
-    proxy_file = ["http_proxy.txt", "socks5_proxy.txt"]
+    proxy_file = ["http_proxy.txt", "socks5_proxy.txt", "socks4_proxy.txt"]
     for fn in proxy_file:
         f_obj = pathlib.Path(path, fn)
         if f_obj.exists():
@@ -44,6 +44,10 @@ def load_proxies() -> list:
                 for proxy in proxy_lst:
                     if proxy:
                         proxy_all.append({'all://': 'socks5://' + proxy})
+            elif fn == "socks4_proxy.txt":
+                for proxy in proxy_lst:
+                    if proxy:
+                        proxy_all.append({'all://': 'socks4://' + proxy})
         else:
             f_obj.touch()
     logger.success(f"代理列表加载完成,代理数:{len(proxy_all)}")
