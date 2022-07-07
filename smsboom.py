@@ -127,7 +127,7 @@ def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, en
             # 此處代碼邏輯有問題,如果 _proxy 為空就不會啓動轟炸,必須有東西才行
             for proxy in _proxies:
                 logger.success(f"第{i}波轰炸 - 当前正在使用代理：" +
-                               proxy['all://'] + " 进行轰炸...") if enable_proxy else logger.success(f"第{i}波开始轰炸...")
+                                proxy['all://'] + " 进行轰炸...") if enable_proxy else logger.success(f"第{i}波开始轰炸...")
                 # 不可用的代理或API过多可能会影响轰炸效果
                 for api in _api:
                     pool.submit(reqFuncByProxy, api, phone, proxy) if enable_proxy else pool.submit(
