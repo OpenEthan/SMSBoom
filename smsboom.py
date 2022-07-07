@@ -27,40 +27,27 @@ def load_proxies() -> list:
     """load proxies for files
     :return: proxies list
     """
-    proxy_data = []
-    try:
-        proxy_path = pathlib.Path(path, 'http_proxy.txt')
-        for line in open(proxy_path):
-            le = line.replace("\r", "").replace("\n", "")
-            if le == '':
+    proxy_all = []
+    proxy_file = ["http_proxy.txt", "socks5_proxy.txt"]
+    for fn in proxy_file:
+        f_obj = pathlib.Path(path, fn)
+        if f_obj.exists():
+            proxy_lst = pathlib.Path(path, fn).read_text(
+                encoding="utf8").split("\n")
+            if not proxy_lst:
                 continue
-            proxy_one = {
-                'all://': 'http://' + le
-            }
-            proxy_data.append(proxy_one)
-        proxy_path = pathlib.Path(path, 'socks4_proxy.txt')
-        for line in open(proxy_path):
-            le = line.replace("\r", "").replace("\n", "")
-            if le == '':
-                continue
-            proxy_one = {
-                'all://': 'socks4://' + le
-            }
-            proxy_data.append(proxy_one)
-        proxy_path = pathlib.Path(path, 'socks5_proxy.txt')
-        for line in open(proxy_path):
-            le = line.replace("\r", "").replace("\n", "")
-            if le == '':
-                continue
-            proxy_one = {
-                'all://': 'socks5://' + le
-            }
-            proxy_data.append(proxy_one)
-    except:
-        logger.error("proxies 加载失败")
-        return []
-    logger.success(f"proxies 加载完成 接口数:{len(proxy_data)}")
-    return proxy_data
+            if fn == "http_proxy.txt":
+                for proxy in proxy_lst:
+                    if proxy:
+                        proxy_all.append({'all://': 'http://' + proxy})
+            elif fn == "socks5_proxy.txt":
+                for proxy in proxy_lst:
+                    if proxy:
+                        proxy_all.append({'all://': 'socks5://' + proxy})
+        else:
+            f_obj.touch()
+    logger.success(f"代理列表加载完成,代理数:{len(proxy_all)}")
+    return proxy_all
 
 
 def load_json() -> List[API]:
@@ -70,7 +57,6 @@ def load_json() -> List[API]:
     json_path = pathlib.Path(path, 'api.json')
     if not json_path.exists():
         logger.error("Json file not exists!")
-        # return None
         raise ValueError
 
     with open(json_path.resolve(), mode="r", encoding="utf8") as j:
@@ -84,7 +70,6 @@ def load_json() -> List[API]:
             return APIs
         except Exception as why:
             logger.error(f"Json file syntax error:{why}")
-            # return None
             raise ValueError
 
 
@@ -95,7 +80,6 @@ def load_getapi() -> list:
     json_path = pathlib.Path(path, 'GETAPI.json')
     if not json_path.exists():
         logger.error("GETAPI.json file not exists!")
-        # return None
         raise ValueError
 
     with open(json_path.resolve(), mode="r", encoding="utf8") as j:
@@ -105,7 +89,6 @@ def load_getapi() -> list:
             return datas
         except Exception as why:
             logger.error(f"Json file syntax error:{why}")
-            # return None
             raise ValueError
 
 
@@ -119,18 +102,22 @@ def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, en
     """传入线程数和手机号启动轰炸,支持多手机号"""
     logger.info(
         f"手机号:{phone}, 线程数:{thread}, 执行次数:{frequency}, 间隔时间:{interval}")
+    try:
+        _api = load_json()
+        _api_get = load_getapi()
+        _proxies = load_proxies()
+        # fix: by Ethan
+        if not _proxies:
+            if enable_proxy:
+                logger.error("无法读取任何代理....请取消-e")
+                sys.exit(1)
+            _proxies = [None]
+    except ValueError:
+        logger.error("读取接口出错!正在重新下载接口数据!....")
+        update()
+        sys.exit(1)
+
     with ThreadPoolExecutor(max_workers=thread) as pool:
-        try:
-            _api = load_json()
-            _api_get = load_getapi()
-            _proxies = load_proxies()
-            # fix: by Ethan
-            if not _proxies:
-                _proxies = [None]
-        except ValueError:
-            logger.error("读取接口出错!正在重新下载接口数据!....")
-            update()
-            sys.exit(1)
         for i in range(1, frequency + 1):
             logger.success(f"第{i}波轰炸开始！")
             # 此處代碼邏輯有問題,如果 _proxy 為空就不會啓動轟炸,必須有東西才行
@@ -185,7 +172,6 @@ def update():
     logger.info(f"正在从GitHub拉取最新接口!")
     try:
         with httpx.Client(verify=False, timeout=10) as client:
-            # print(API_json_url)
             GETAPI_json = client.get(
                 GETAPI_json_url, headers=default_header_user_agent()).content.decode(encoding="utf8")
             api_json = client.get(
