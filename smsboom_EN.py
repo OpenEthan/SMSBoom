@@ -1,5 +1,5 @@
 # encoding=utf8
-# 短信测压主程序
+# smsboom English version
 
 from utils import default_header_user_agent
 from utils.log import logger
@@ -14,9 +14,13 @@ import sys
 import time
 import click
 import httpx
+import os
 
-# current directory
-path = pathlib.Path(__file__).parent
+# determine if application is a script file or frozen exe
+if getattr(sys, 'frozen', False):
+    path = os.path.dirname(sys.executable)
+elif __file__:
+    path = os.path.dirname(__file__)
 
 
 def load_proxies() -> list:
