@@ -326,4 +326,4 @@ Options:
 ### Telegram Channel (TG群组)
 > 涉及敏/感信息,政/治,民/主运动话题请到 **TG群聊**
 
-[SMSBoomPro](https://t.me/SMSBoomPro)
+[SMSBoomPr](https://t.me/SMSBoomPr)
