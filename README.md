@@ -156,6 +156,14 @@ python smsboom.py
 
 #### 使用 Docker 运行
 
+##### 方式一: 一键运行
+
+```shell
+docker run --rm lanqsh/smsboom run -t 1 -p {PHONE} -i 1
+```
+
+#####  方式二: 自建镜像
+
 **前提条件:** 请确保当前环境已安装 [Docker](https://docs.docker.com/get-docker/).
 
 1. 构建镜像
