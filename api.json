@@ -741,5 +741,54 @@
         "method": "GET",
         "header": "",
         "data": ""
+    },
+    {
+        "desc": "透明售房网(可能只能一次第二次会弹验证码)",
+        "url": "http://www.tmsf.com/mem/WebMemLoginAction_saveMemMobileCodeImg.jspx?usermobile=[phone]&imagecode=",
+        "method": "GET",
+        "header": {
+            "Referer": "http://www.tmsf.com/esf/esfnSearch_communityListUpgrade.htm",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        "data": ""
+    },
+    {
+        "desc": "巨人网络",
+        "url": "https://reg.ztgame.com/common/sendmpcode?source=giant_site&nonce=&type=verifycode&token=&refurl=https%3A%2F%2Flogin.ztgame.com%2F&cururl=http%3A%2F%2Freg.ztgame.com%2F&phone=[phone]&mpcode=&pwd=&tname=&idcard=",
+        "method": "GET",
+        "header": {
+            "Referer": "https://reg.ztgame.com/",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        "data": ""
+    },
+    {
+        "desc": "人人文库",
+        "url": "https://www.renrendoc.com/Reg.aspx/GetUserSMSCode",
+        "method": "POST",
+        "header": {
+            "Content-Type": "application/json; charset=UTF-8",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        "data": {
+            "userMobile": "[phone]"
+        }
+    },
+    {
+        "desc": "塞优教育",
+        "url": "http://www.cuour.org/edu_cloud/sms_send",
+        "method": "POST",
+        "header": {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Cookie": "PHPSESSID=20pi9ugtg1tboucsjcc8ute6t9",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+            "X-CSRF-Token": "7--b2sxDUBm-Jd2yf_5KYrf7Hw2w_M6BDhSJq-H2GjY",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        "data": {
+            "to": "[phone]",
+            "sms_type": "sms_registration"
+        }
     }
 ]
