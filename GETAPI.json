@@ -989,7 +989,7 @@
     "https://www.baixing.com/oz/verify/reg?mobile=[phone]&businessType=register_captcha_code",
     "https://www.birdnet.cn/source/plugin/login_mobile/index.php?version=4&module=[phone]",
     "https://www.d7w.net/index.php?g=Member&amp;m=Api&amp;a=getmobilecode_binding&amp;j=json&amp;mobile=[phone]",
-    "https://www.diantoushi.com/user/v2/captcha?mobile=[phone]",
+    "https://www.diantoushi.com/user/v3/captcha?mobile=[phone]",
     "https://www.gac-toyota.com.cn/sublayouts/Member%20Center/VerifyCode.aspx?random=0.6042665278484218&ws_Method=getDynamicCodeTEL_NO=[phone]",
     "https://www.guiji.ai/market/sms?mobile=[phone]",
     "https://www.guiji.ai/site/sms?type=2&amp;mobile=[phone]",

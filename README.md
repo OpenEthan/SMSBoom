@@ -280,6 +280,7 @@ python smsboom.py run -t 64 -p 198xxxxxxxx -p 199xxxxxxxx -f 60 -i 30 -e
 ```shell
 pipenv shell # 激活虚拟环境
 python run_flask_app.py start -p 9090 # 监听9090端口
+提示ModuleNotFoundError: No module named 'xxx' 可使用pip install model_name
 ```
 
 **运行帮助:**
