@@ -4,7 +4,7 @@
         "url": "https://pdf.kfsafe.cn/sms/phone/code",
         "method": "POST",
         "header": {
-            "Content-Type": "application/json;charset=utf-8",
+            "Content-Type": "application/json;charset=utf-8"
         },
         "data": {
             "phone": "[phone]"
