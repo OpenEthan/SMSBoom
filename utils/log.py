@@ -6,7 +6,7 @@ import sys
 import os
 
 # 终端日志输出格式
-stdout_fmt = '{level.icon}  <cyan>{time:HH:mm:ss,SSS}</cyan> ' \
+stdout_fmt = '<cyan>{time:HH:mm:ss,SSS}</cyan> ' \
     '[<level>{level}</level>] ' \
     '<cyan>{thread.name}</cyan> ' \
     '<blue>{module}</blue>:<cyan>{line}</cyan> - ' \
