@@ -41,8 +41,12 @@ def reqFuncByProxy(api: Union[API, str], phone: Union[tuple, str], proxy: dict) 
                 else:
                     api = api.replace("[phone]", ph).replace(" ", "").replace('\n', '').replace('\r', '')
                     resp = client.get(url=api, headers=default_header_user_agent())
-                    logger.info(f"GETAPI接口-{resp.text[:30]}")
-                return True
+                    if (resp.text.find("200") != -1 or resp.text.find("success") != -1) and resp.text.find("不能") == -1 and resp.text.find("失败") == -1 and resp.text.find("非法") == -1:
+                        logger.success(f"GETAPI接口-{resp.text[:30]}")
+                        return True
+                    else:
+                        logger.info(f"GETAPI接口-{resp.text[:30]}")
+                        return False
             except httpx.HTTPError as why:
                 logger.error(f"请求失败{why}")
                 return False
@@ -66,7 +70,12 @@ def reqFunc(api: Union[API, str], phone: Union[tuple, str]) -> bool:
                 else:
                     api = api.replace("[phone]", ph).replace(" ", "").replace('\n', '').replace('\r', '')
                     resp = client.get(url=api, headers=default_header_user_agent())
-                    logger.info(f"GETAPI接口-{resp.text[:30]}")
+                    if (resp.text.find("200") != -1 or resp.text.find("success") != -1) and resp.text.find("不能") == -1 and resp.text.find("失败") == -1 and resp.text.find("非法") == -1:
+                        logger.success(f"GETAPI接口-{resp.text[:30]}")
+                        return True
+                    else:
+                        logger.info(f"GETAPI接口-{resp.text[:30]}")
+                        return False
                 return True
             except httpx.HTTPError as why:
                 logger.error(f"请求失败{why}")
