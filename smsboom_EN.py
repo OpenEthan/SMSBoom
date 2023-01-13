@@ -113,12 +113,18 @@ def load_getapi() -> list:
 
 @click.command()
 @click.option("--thread", "-t", help="Number of threads (Default 64)", default=64)
-@click.option("--phone", "-p", help="Mobile phone number, you can pass in multiple and then use -p to pass", prompt=True, required=True, multiple=True)
+@click.option("--phone", "-p", help="Mobile phone number, you can pass in multiple and then use -p to pass", multiple=True, type=str)
 @click.option('--frequency', "-f", default=1, help="Number of executions (default 1)", type=int)
 @click.option('--interval', "-i", default=60, help="Intervals(Default 60s)", type=int)
 @click.option('--enable_proxy', "-e", is_flag=True, help="Enable proxy(Default Off)", type=bool)
 def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, enable_proxy: bool = False):
     """Incoming the number of threads and mobile phone number to start bombing,Support multiple phone numbers"""
+    while not phone:
+        phone = input("Phone: ")
+    for i in phone:
+        if not i.isdigit():
+            logger.error("The phone number must be pure numbers!")
+            sys.exit(1)
     logger.info(
         f"Phone number:{phone}, Threads:{thread}, number of executions:{frequency}, Intervals:{interval}")
     with ThreadPoolExecutor(max_workers=thread) as pool:

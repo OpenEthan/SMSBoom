@@ -98,12 +98,18 @@ def load_getapi() -> list:
 
 @click.command()
 @click.option("--thread", "-t", help="线程数(默认64)", default=64)
-@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", prompt=True, required=True, multiple=True)
+@click.option("--phone", "-p", help="手机号,可传入多个再使用-p传递", multiple=True, type=str)
 @click.option('--frequency', "-f", default=1, help="执行次数(默认1次)", type=int)
 @click.option('--interval', "-i", default=60, help="间隔时间(默认60s)", type=int)
 @click.option('--enable_proxy', "-e", is_flag=True, help="开启代理(默认关闭)", type=bool)
 def run(thread: int, phone: Union[str, tuple], frequency: int, interval: int, enable_proxy: bool = False):
     """传入线程数和手机号启动轰炸,支持多手机号"""
+    while not phone:
+        phone = input("Phone: ")
+    for i in phone:
+        if not i.isdigit():
+            logger.error("手机号必须为纯数字！")
+            sys.exit(1)
     logger.info(
         f"手机号:{phone}, 线程数:{thread}, 执行次数:{frequency}, 间隔时间:{interval}")
     try:
