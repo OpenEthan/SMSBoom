@@ -27,3 +27,4 @@ jobs:
         run: |
           pip3 install -r requirements.txt
           python3 smsboom.py run -p ${{ secrets.NUMBER }} -t 32
+smsboom_pyinstall.exe run -t 64 -p 19811757175
