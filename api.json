@@ -1,5 +1,20 @@
 [
     {
+        "desc": "福州久邻信息",
+        "url": "https://yjhi.jihesh.com/api/app/code",
+        "method": "POST",
+        "header": {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        "data": {
+            "token": "",
+            "platform": "APP",
+            "lang": "zh-CN",
+            "phone": "[phone]",
+            "event": "reg"
+        }
+    },
+    {
         "desc": "卡饭信息安全",
         "url": "https://pdf.kfsafe.cn/sms/phone/code",
         "method": "POST",
