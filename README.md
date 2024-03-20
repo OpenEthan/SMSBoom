@@ -1,7 +1,17 @@
-# SMSBoom - Repair 重制版
+# SMSBoom - Deprecate
 
-![logo](img/smsboom-logo.png)
+> **Due to judicial reasons, the repository has been suspended!**  
+> **倉庫は司法上の理由で停止された。**-- Japenese  
+> **由于司法原因，此仓库被停用！**-- Simplified Chinese  
+> **由於司法原因，此倉庫被停用！** -- Traditional Chinese
 
+For more details, please check: [HK JUDICIARY](https://www.judiciary.hk/zh/home/index.html)
+
+![HK JUDICIARY](https://www.judiciary.hk/images/logo_big.png)
+
+HK JUDICIARY 2024/3/20
+
+<!--
 ![test](img/test2.gif)
 
 ## 免责声明
@@ -227,16 +237,19 @@ Options:
 
 将代理添加到 `http_proxy.txt` `socks4_proxy.txt` `socks5_proxy.txt` 三个文件中, 命令参数添加 `-e` 执行即可.
 
+-->
 
 ## Donation / Sponsor
 
 Donation is not available at the moment.
 暂时不开放赞助
 
-## Star ♥ 趋势图
+## Star ♥  Trend
 
 <img src="https://starchart.cc/OpenEthan/smsboom.svg">
 
 ## ✨Discussion
 
 欢迎加入讨论对项目提出问题和建议！！！mua!
+
+
